@@ -4,26 +4,28 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.loose.fis</groupId>
-    <artifactId>simple-registration-example</artifactId>
+    <groupId>org.nl</groupId>
+    <artifactId>nature-leaf</artifactId>
     <version>0.1.0-SNAPSHOT</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <main.class.name>org.loose.fis.sre.Main</main.class.name>
-        <final.jar.name>simple-registration-example</final.jar.name>
+        <main.class.name>org.nl.Main</main.class.name>
+        <final.jar.name>nature-leaf</final.jar.name>
     </properties>
+
+
 
     <dependencies>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>15.0.1</version>
+            <version>16</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>15.0.1</version>
+            <version>16</version>
         </dependency>
 
         <!--  Nitrite Java Database  -->
@@ -36,6 +38,17 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.10.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.30</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.6.2</version>
         </dependency>
 
     </dependencies>

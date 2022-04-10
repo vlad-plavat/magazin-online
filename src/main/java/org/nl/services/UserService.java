@@ -1,16 +1,20 @@
-package org.loose.fis.sre.services;
+package org.nl.services;
 
+import org.dizitart.no2.Cursor;
+import org.dizitart.no2.Document;
 import org.dizitart.no2.Nitrite;
+import org.dizitart.no2.NitriteCollection;
 import org.dizitart.no2.objects.ObjectRepository;
-import org.loose.fis.sre.exceptions.UsernameAlreadyExistsException;
-import org.loose.fis.sre.model.User;
+import org.nl.exceptions.UsernameAlreadyExistsException;
+import org.nl.model.User;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Iterator;
 import java.util.Objects;
 
-import static org.loose.fis.sre.services.FileSystemService.getPathToFile;
+import static org.nl.services.FileSystemService.getPathToFile;
 
 public class UserService {
 
@@ -18,8 +22,8 @@ public class UserService {
 
     public static void initDatabase() {
         Nitrite database = Nitrite.builder()
-                .filePath(getPathToFile("registration-example.db").toFile())
-                .openOrCreate("test", "test");
+                .filePath(getPathToFile("natureleaf.db").toFile())
+                .openOrCreate("admin", "admin");
 
         userRepository = database.getRepository(User.class);
     }
@@ -28,7 +32,14 @@ public class UserService {
         checkUserDoesNotAlreadyExist(username);
         userRepository.insert(new User(username, encodePassword(username, password), role));
     }
-
+    public static void readusers(){
+        NitriteCollection nc = userRepository.getDocumentCollection();
+        Cursor lind = nc.find();
+        Iterator it = lind.iterator();
+        while (it.hasNext()){
+            System.out.println(  ((Document)(it.next())).get("username")  );
+        }
+    }
     private static void checkUserDoesNotAlreadyExist(String username) throws UsernameAlreadyExistsException {
         for (User user : userRepository.find()) {
             if (Objects.equals(username, user.getUsername()))
