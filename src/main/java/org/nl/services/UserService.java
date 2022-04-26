@@ -34,11 +34,11 @@ public class UserService {
     }
     public static void readusers(){
         NitriteCollection nc = userRepository.getDocumentCollection();
-        Cursor lind = nc.find();
+        /*Cursor lind = nc.find();
         Iterator it = lind.iterator();
         while (it.hasNext()){
             System.out.println(  ((Document)(it.next())).get("username")  );
-        }
+        }*/
     }
     private static void checkUserDoesNotAlreadyExist(String username) throws UsernameAlreadyExistsException {
         for (User user : userRepository.find()) {
