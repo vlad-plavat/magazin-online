@@ -7,11 +7,13 @@ public class User {
     private String username;
     private String password;
     private String role;
+    private String aux;
 
-    public User(String username, String password, String role) {
+    public User(String username, String password, String role, String aux) {
         this.username = username;
         this.password = password;
         this.role = role;
+        this.aux = aux;
     }
 
     public User() {
@@ -39,6 +41,14 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getAux() {
+        return aux;
+    }
+
+    public void setAux(String aux) {
+        this.aux = aux;
     }
 
     @Override

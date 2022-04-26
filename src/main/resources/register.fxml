@@ -5,45 +5,42 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane alignment="center" hgap="10" prefHeight="400" prefWidth="600" vgap="10" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.nl.controllers.RegistrationController">
+<GridPane alignment="center" hgap="10" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-image: url('background.png');" vgap="10" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.nl.controllers.RegistrationController">
     <padding>
         <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
     </padding>
-    <Text id="title-text" stroke="BLACK" strokeWidth="0.5" text="Sign in or sign up" textAlignment="CENTER" wrappingWidth="220.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0">
+    <Text id="title-text" stroke="BLACK" strokeWidth="0.5" text="Nature Leaf" textAlignment="CENTER" wrappingWidth="220.0" GridPane.columnIndex="0" GridPane.columnSpan="2">
       <font>
-         <Font size="16.0" />
-      </font></Text>
+         <Font name="Wingdings" size="35.0" />
+      </font>
+      <GridPane.margin>
+         <Insets bottom="50.0" />
+      </GridPane.margin></Text>
 
-    <Label text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-
-    <TextField fx:id="usernameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-
-    <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-
-    <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-
-    <Label text="Role:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-
-    <ChoiceBox fx:id="role" onAction="#modificaCampuri" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+    <ChoiceBox fx:id="role" onAction="#modificaCampuri" prefWidth="210.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
     </ChoiceBox>
 
+    <TextField fx:id="usernameField" focusTraversable="false" promptText="Username" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-    <Label fx:id="adresaText" text="Adresa:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-    <PasswordField fx:id="adresaField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+    <PasswordField fx:id="passwordField" focusTraversable="false" promptText="Password" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+    <TextField fx:id="auxField" promptText="Aux" GridPane.columnIndex="1" GridPane.rowIndex="5" />
 
-    <Label fx:id="nrText" text="Nr. masina:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-    <PasswordField fx:id="nrField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+    <!--Label fx:id="nrText" text="Nr. masina:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+    <PasswordField fx:id="nrField" GridPane.columnIndex="1" GridPane.rowIndex="5" /-->
 
 
-    <Text fx:id="registrationMessage" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-    <HBox alignment="bottom_right" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="7">
-        <Button onAction="#handleRegisterAction" text="Register" />
+    <Text fx:id="registrationMessage" textAlignment="CENTER" wrappingWidth="210.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+    <HBox alignment="CENTER" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="8">
+      <Button fx:id="backButton" mnemonicParsing="false" onAction="#backToLogin" text="Back" />
+        <Button fx:id="loginButton" contentDisplay="CENTER" onAction="#handleLoginAction" text="Login" />
+      <Button fx:id="regButton" mnemonicParsing="false" onAction="#handleRegisterAction" text="Register" />
     </HBox>
    <columnConstraints>
       <ColumnConstraints />
       <ColumnConstraints />
    </columnConstraints>
    <rowConstraints>
+      <RowConstraints minHeight="10.0" prefHeight="30.0" />
       <RowConstraints />
       <RowConstraints />
       <RowConstraints />
