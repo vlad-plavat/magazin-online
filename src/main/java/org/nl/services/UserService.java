@@ -6,6 +6,8 @@ import org.dizitart.no2.Nitrite;
 import org.dizitart.no2.NitriteCollection;
 import org.dizitart.no2.objects.ObjectRepository;
 import org.nl.exceptions.UsernameAlreadyExistsException;
+import org.nl.exceptions.WrongPasswordException;
+import org.nl.exceptions.WrongUsernameException;
 import org.nl.model.User;
 
 import java.nio.charset.StandardCharsets;
@@ -40,6 +42,21 @@ public class UserService {
             System.out.println(  ((Document)(it.next())).get("username")  );
         }*/
     }
+
+    public static void checkLoginCredentials(String username, String password) throws WrongPasswordException, WrongUsernameException {
+        User foundUser = null;
+        for (User user : userRepository.find()) {
+            if (Objects.equals(username, user.getUsername())) {
+                foundUser = user;
+            }
+        }
+        if(foundUser == null)
+            throw new WrongUsernameException(username);
+
+        if(!foundUser.getPassword().equals(encodePassword(username, password)))
+            throw new WrongPasswordException(username);
+    }
+
     private static void checkUserDoesNotAlreadyExist(String username) throws UsernameAlreadyExistsException {
         for (User user : userRepository.find()) {
             if (Objects.equals(username, user.getUsername()))

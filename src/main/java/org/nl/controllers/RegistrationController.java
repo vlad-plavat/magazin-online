@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import org.nl.exceptions.UsernameAlreadyExistsException;
+import org.nl.exceptions.WrongPasswordException;
+import org.nl.exceptions.WrongUsernameException;
 import org.nl.services.UserService;
 
 public class RegistrationController {
@@ -25,6 +27,7 @@ public class RegistrationController {
     @FXML
     private Button loginButton;
 
+    private String loggedUser;
 
     @FXML
     public void initialize() {
@@ -64,20 +67,28 @@ public class RegistrationController {
         backButton.setVisible(false);
         regButton.setVisible(false);
         loginButton.setVisible(true);
+        registrationMessage.setText("");
 
     }
     @FXML
     public void handleLoginAction(){
         UserService.readusers();
+        String name = usernameField.getText();
+        String pass = passwordField.getText();
 
-        if (!usernameField.getText().isEmpty() && usernameField.getText().charAt(0) == 'r') {
+        try {
+            UserService.checkLoginCredentials(name,pass);
+            System.out.println(">>>>>trec la meniu");
+        } catch (WrongPasswordException e) {
+            registrationMessage.setText(e.getMessage());
+        } catch (WrongUsernameException e) {
+            registrationMessage.setText(e.getMessage() + " Create an account for " + name);
             role.setVisible(true);
             auxField.setVisible(true);
             backButton.setVisible(true);
             regButton.setVisible(true);
             loginButton.setVisible(false);
         }
-        System.out.println("am incercat sa ma loghez");
     }
     @FXML
     public void handleRegisterAction() {
