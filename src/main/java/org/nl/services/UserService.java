@@ -30,9 +30,9 @@ public class UserService {
         userRepository = database.getRepository(User.class);
     }
 
-    public static void addUser(String username, String password, String role) throws UsernameAlreadyExistsException {
+    public static void addUser(String username, String password, String role, String aux) throws UsernameAlreadyExistsException {
         checkUserDoesNotAlreadyExist(username);
-        userRepository.insert(new User(username, encodePassword(username, password), role));
+        userRepository.insert(new User(username, encodePassword(username, password), role, aux));
     }
     public static void readusers(){
         NitriteCollection nc = userRepository.getDocumentCollection();

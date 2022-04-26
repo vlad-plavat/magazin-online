@@ -27,11 +27,10 @@ public class RegistrationController {
     @FXML
     private Button loginButton;
 
-    private String loggedUser;
 
     @FXML
     public void initialize() {
-        role.getItems().addAll("Client", "Manager","Lucrator","Curier");
+        role.getItems().addAll("Client", "Manager","Worker","Courier");
         role.setValue("Client");
         role.managedProperty().bind(role.visibleProperty());
         auxField.managedProperty().bind(auxField.visibleProperty());
@@ -54,10 +53,10 @@ public class RegistrationController {
         auxField.setVisible(false);
         if(role.getValue().toString().equals("Client")){
             auxField.setVisible(true);
-            auxField.setPromptText("Adresa");
-        }else if(role.getValue().toString().equals("Curier")){
+            auxField.setPromptText("Address");
+        }else if(role.getValue().toString().equals("Courier")){
             auxField.setVisible(true);
-            auxField.setPromptText("Nr. inmatriculare");
+            auxField.setPromptText("Car license plate");
         }
 
     }@FXML
@@ -77,6 +76,8 @@ public class RegistrationController {
         String pass = passwordField.getText();
 
         try {
+            if(name.isBlank() || pass.isBlank())
+                throw new Exception("Please enter a username and password.");
             UserService.checkLoginCredentials(name,pass);
             System.out.println(">>>>>trec la meniu");
         } catch (WrongPasswordException e) {
@@ -88,14 +89,34 @@ public class RegistrationController {
             backButton.setVisible(true);
             regButton.setVisible(true);
             loginButton.setVisible(false);
+        } catch (Exception e){
+            registrationMessage.setText(e.getMessage());
         }
     }
     @FXML
     public void handleRegisterAction() {
+        String name = usernameField.getText();
+        String pass = passwordField.getText();
+        String aux = auxField.getText();
+        String rolestr = (String) role.getValue();
+
         try {
-            UserService.addUser(usernameField.getText(), passwordField.getText(), (String) role.getValue());
+            if(name.isBlank() || pass.isBlank()) {
+                throw new Exception("Please enter a username and password.");
+            }
+            if(rolestr.equals("Client") && aux.length()<5)
+                throw new Exception("PLease enter an address.");
+            if(rolestr.equals("Courier") && aux.length()<5)
+                throw new Exception("PLease enter the license plate.");
+            if(!rolestr.equals("Client") && !rolestr.equals("Courier"))
+                aux = "";
+            UserService.addUser(usernameField.getText(), passwordField.getText(), (String) role.getValue(), aux);
             registrationMessage.setText("Account created successfully!");
+            System.out.println(">>>>>>>meniu");
+
         } catch (UsernameAlreadyExistsException e) {
+            registrationMessage.setText(e.getMessage());
+        } catch (Exception e){
             registrationMessage.setText(e.getMessage());
         }
         UserService.readusers();
