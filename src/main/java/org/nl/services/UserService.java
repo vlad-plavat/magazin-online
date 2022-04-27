@@ -30,9 +30,11 @@ public class UserService {
         userRepository = database.getRepository(User.class);
     }
 
-    public static void addUser(String username, String password, String role, String aux) throws UsernameAlreadyExistsException {
+    public static User addUser(String username, String password, String role, String aux) throws UsernameAlreadyExistsException {
         checkUserDoesNotAlreadyExist(username);
         userRepository.insert(new User(username, encodePassword(username, password), role, aux));
+        return new User(username, encodePassword(username, password), role, aux);
+
     }
     public static void readusers(){
         NitriteCollection nc = userRepository.getDocumentCollection();
@@ -43,7 +45,7 @@ public class UserService {
         }*/
     }
 
-    public static void checkLoginCredentials(String username, String password) throws WrongPasswordException, WrongUsernameException {
+    public static User checkLoginCredentials(String username, String password) throws WrongPasswordException, WrongUsernameException {
         User foundUser = null;
         for (User user : userRepository.find()) {
             if (Objects.equals(username, user.getUsername())) {
@@ -55,6 +57,8 @@ public class UserService {
 
         if(!foundUser.getPassword().equals(encodePassword(username, password)))
             throw new WrongPasswordException(username);
+
+        return foundUser;
     }
 
     private static void checkUserDoesNotAlreadyExist(String username) throws UsernameAlreadyExistsException {

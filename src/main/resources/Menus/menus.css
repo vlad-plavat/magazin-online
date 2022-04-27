@@ -1,0 +1,11 @@
+.button{
+  -fx-transition-duration: 0.4s;
+ }
+
+.button:hover{
+    -fx-opacity: 0.85;
+}
+
+.button:pressed{
+    -fx-opacity: 0.7;
+}

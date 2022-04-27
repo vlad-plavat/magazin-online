@@ -1,15 +1,27 @@
 package org.nl.controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import org.nl.Main;
+import org.nl.exceptions.SimpleTextException;
 import org.nl.exceptions.UsernameAlreadyExistsException;
 import org.nl.exceptions.WrongPasswordException;
 import org.nl.exceptions.WrongUsernameException;
+import org.nl.model.User;
 import org.nl.services.UserService;
+
+import java.io.IOException;
 
 public class RegistrationController {
 
+    public static User loggeduser;
     @FXML
     private Button regButton;
     @FXML
@@ -21,7 +33,7 @@ public class RegistrationController {
     @FXML
     private TextField usernameField;
     @FXML
-    private ChoiceBox role;
+    private ChoiceBox<String> role;
     @FXML
     private TextField auxField;
     @FXML
@@ -51,10 +63,10 @@ public class RegistrationController {
     @FXML
     public void modificaCampuri(){
         auxField.setVisible(false);
-        if(role.getValue().toString().equals("Client")){
+        if(role.getValue().equals("Client")){
             auxField.setVisible(true);
             auxField.setPromptText("Address");
-        }else if(role.getValue().toString().equals("Courier")){
+        }else if(role.getValue().equals("Courier")){
             auxField.setVisible(true);
             auxField.setPromptText("Car license plate");
         }
@@ -70,17 +82,18 @@ public class RegistrationController {
 
     }
     @FXML
-    public void handleLoginAction(){
+    public void handleLoginAction(ActionEvent evt){
         UserService.readusers();
         String name = usernameField.getText();
         String pass = passwordField.getText();
 
         try {
             if(name.isBlank() || pass.isBlank())
-                throw new Exception("Please enter a username and password.");
-            UserService.checkLoginCredentials(name,pass);
-            System.out.println(">>>>>trec la meniu");
-        } catch (WrongPasswordException e) {
+                throw new SimpleTextException("Please enter a username and password.");
+            loggeduser = UserService.checkLoginCredentials(name,pass);
+            goToMenu(evt);
+            //System.out.println(">>>>>trec la meniu");
+        } catch (WrongPasswordException | SimpleTextException e) {
             registrationMessage.setText(e.getMessage());
         } catch (WrongUsernameException e) {
             registrationMessage.setText(e.getMessage() + " Create an account for " + name);
@@ -89,36 +102,46 @@ public class RegistrationController {
             backButton.setVisible(true);
             regButton.setVisible(true);
             loginButton.setVisible(false);
-        } catch (Exception e){
-            registrationMessage.setText(e.getMessage());
         }
     }
     @FXML
-    public void handleRegisterAction() {
+    public void handleRegisterAction(ActionEvent evt) {
         String name = usernameField.getText();
         String pass = passwordField.getText();
         String aux = auxField.getText();
-        String rolestr = (String) role.getValue();
+        String rolestr = role.getValue();
 
         try {
             if(name.isBlank() || pass.isBlank()) {
-                throw new Exception("Please enter a username and password.");
+                throw new SimpleTextException("Please enter a username and password.");
             }
             if(rolestr.equals("Client") && aux.length()<5)
-                throw new Exception("PLease enter an address.");
+                throw new SimpleTextException("PLease enter an address.");
             if(rolestr.equals("Courier") && aux.length()<5)
-                throw new Exception("PLease enter the license plate.");
+                throw new SimpleTextException("PLease enter the license plate.");
             if(!rolestr.equals("Client") && !rolestr.equals("Courier"))
                 aux = "";
-            UserService.addUser(usernameField.getText(), passwordField.getText(), (String) role.getValue(), aux);
+            loggeduser = UserService.addUser(usernameField.getText(), passwordField.getText(), role.getValue(), aux);
             registrationMessage.setText("Account created successfully!");
-            System.out.println(">>>>>>>meniu");
+            goToMenu(evt);
+            //System.out.println(">>>>>>>meniu");
 
-        } catch (UsernameAlreadyExistsException e) {
-            registrationMessage.setText(e.getMessage());
-        } catch (Exception e){
+        } catch (UsernameAlreadyExistsException | SimpleTextException e) {
             registrationMessage.setText(e.getMessage());
         }
         UserService.readusers();
+    }
+
+    private void goToMenu(ActionEvent evt){
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(Main.class.getClassLoader().getResource("Menus/"+loggeduser.getRole()+".fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 }
