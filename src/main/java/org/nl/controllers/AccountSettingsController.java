@@ -7,19 +7,31 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.nl.Main;
+import org.nl.exceptions.SimpleTextException;
+import org.nl.exceptions.WrongPasswordException;
+import org.nl.exceptions.WrongUsernameException;
+import org.nl.services.UserService;
 
 
 import java.io.IOException;
 
 import static org.nl.controllers.RegistrationController.loggeduser;
+import static org.nl.services.UserService.encodePassword;
 
 public class AccountSettingsController {
     @FXML
     private TextField auxField;
     @FXML
     private TextField usernameField;
+    @FXML
+    private TextField oldPasswordField;
+    @FXML
+    private TextField newPasswordField;
+    @FXML
+    private Text errorField;
 
     @FXML
     public void initialize() {
@@ -55,8 +67,27 @@ public class AccountSettingsController {
 
     }
     @FXML
-    public void saveChanges(){
-        System.out.println("Save");
+    public void saveChanges(ActionEvent evt){
+        UserService.readusers();
+        String name = usernameField.getText();
+        String oldPass = oldPasswordField.getText();
+        String newPass = newPasswordField.getText();
+        errorField.setText("");
+
+        try {
+            if(name.isBlank() || oldPass.isBlank())
+                throw new SimpleTextException("Please enter a username and password.");
+            if(!loggeduser.getPassword().equals(encodePassword(loggeduser.getUsername(), oldPass))){
+                throw new WrongPasswordException(loggeduser.getUsername());
+            }
+            //correct password
+            System.out.println("Parola corecta");
+
+            //backToMenu(evt);
+            //System.out.println(">>>>>trec la meniu");
+        } catch (WrongPasswordException | SimpleTextException e) {
+            errorField.setText(e.getMessage());
+        }
 
     }
 
