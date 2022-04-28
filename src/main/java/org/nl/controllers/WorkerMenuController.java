@@ -18,8 +18,19 @@ public class WorkerMenuController {
 
     }
     @FXML
-    public void goToSettings(){
-        System.out.println("Settings");
+    public void goToSettings(ActionEvent evt){
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(Main.class.getClassLoader().getResource("accountSettings.fxml"));
+            Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
     }
     @FXML
