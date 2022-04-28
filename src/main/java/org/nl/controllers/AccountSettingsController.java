@@ -11,6 +11,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.nl.Main;
 import org.nl.exceptions.SimpleTextException;
+import org.nl.exceptions.UsernameAlreadyExistsException;
 import org.nl.exceptions.WrongPasswordException;
 import org.nl.exceptions.WrongUsernameException;
 import org.nl.services.UserService;
@@ -87,11 +88,13 @@ public class AccountSettingsController {
                 throw new SimpleTextException("Please enter an address.");
             if(loggeduser.getRole().equals("Courier") && (aux.length()<5 || aux.isBlank()))
                 throw new SimpleTextException("Please enter the license plate.");
-
+            if(newPass.isBlank())
+                newPass = oldPass;
+            UserService.changeUserData(name, newPass, aux);
 
             backToMenu(evt);
             //System.out.println(">>>>>trec la meniu");
-        } catch (WrongPasswordException | SimpleTextException e) {
+        } catch (WrongPasswordException | SimpleTextException | UsernameAlreadyExistsException e) {
             errorField.setText(e.getMessage());
         }
 

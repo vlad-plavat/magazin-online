@@ -5,6 +5,7 @@ import org.dizitart.no2.Document;
 import org.dizitart.no2.Nitrite;
 import org.dizitart.no2.NitriteCollection;
 import org.dizitart.no2.objects.ObjectRepository;
+import org.nl.controllers.RegistrationController;
 import org.nl.exceptions.UsernameAlreadyExistsException;
 import org.nl.exceptions.WrongPasswordException;
 import org.nl.exceptions.WrongUsernameException;
@@ -34,6 +35,16 @@ public class UserService {
         checkUserDoesNotAlreadyExist(username);
         userRepository.insert(new User(username, encodePassword(username, password), role, aux));
         return new User(username, encodePassword(username, password), role, aux);
+
+    }
+
+    public static void changeUserData(String username, String password, String aux) throws UsernameAlreadyExistsException {
+        if(!username.equals(RegistrationController.loggeduser.getUsername()))
+            checkUserDoesNotAlreadyExist(username);
+        String role = RegistrationController.loggeduser.getRole();
+        userRepository.remove(RegistrationController.loggeduser);
+        userRepository.insert(new User(username, encodePassword(username, password), role, aux));
+        //return new User(username, encodePassword(username, password), aux);
 
     }
     public static void readusers(){
