@@ -72,6 +72,7 @@ public class AccountSettingsController {
         String name = usernameField.getText();
         String oldPass = oldPasswordField.getText();
         String newPass = newPasswordField.getText();
+        String aux = auxField.getText();
         errorField.setText("");
 
         try {
@@ -80,10 +81,15 @@ public class AccountSettingsController {
             if(!loggeduser.getPassword().equals(encodePassword(loggeduser.getUsername(), oldPass))){
                 throw new WrongPasswordException(loggeduser.getUsername());
             }
-            //correct password
-            System.out.println("Parola corecta");
+            if(!newPass.isBlank() && newPass.length()<4)
+                throw new SimpleTextException("The password must be at least 4 characters long.");
+            if(loggeduser.getRole().equals("Client") && (aux.length()<5 || aux.isBlank()))
+                throw new SimpleTextException("Please enter an address.");
+            if(loggeduser.getRole().equals("Courier") && (aux.length()<5 || aux.isBlank()))
+                throw new SimpleTextException("Please enter the license plate.");
 
-            //backToMenu(evt);
+
+            backToMenu(evt);
             //System.out.println(">>>>>trec la meniu");
         } catch (WrongPasswordException | SimpleTextException e) {
             errorField.setText(e.getMessage());

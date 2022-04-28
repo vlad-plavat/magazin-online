@@ -112,13 +112,15 @@ public class RegistrationController {
         String rolestr = role.getValue();
 
         try {
-            if(name.isBlank() || pass.isBlank()) {
-                throw new SimpleTextException("Please enter a username and password.");
+            if(name.isBlank()) {
+                throw new SimpleTextException("Please enter a username.");
             }
+            if(pass.length()<4)
+                throw new SimpleTextException("The password must be at least 4 characters long.");
             if(rolestr.equals("Client") && aux.length()<5)
-                throw new SimpleTextException("PLease enter an address.");
+                throw new SimpleTextException("Please enter an address.");
             if(rolestr.equals("Courier") && aux.length()<5)
-                throw new SimpleTextException("PLease enter the license plate.");
+                throw new SimpleTextException("Please enter the license plate.");
             if(!rolestr.equals("Client") && !rolestr.equals("Courier"))
                 aux = "";
             loggeduser = UserService.addUser(usernameField.getText(), passwordField.getText(), role.getValue(), aux);
