@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0"
+          style="-fx-background-image: url('background.png');" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="org.nl.controllers.WorkerMenuController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="465.4" minHeight="10.0" prefHeight="333.6" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="395.0" minHeight="10.0" prefHeight="386.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#goToOrderProcessing" prefHeight="150.0" prefWidth="200.0" style="-fx-background-image: url('Menus/orderProcessing.png'); -fx-background-size: cover;" stylesheets="@menus.css" text="Order Processing" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
+         <font>
+            <Font size="20.0" />
+         </font>
+         <GridPane.margin>
+            <Insets bottom="30.0" left="50.0" right="30.0" top="50.0" />
+         </GridPane.margin>
+      </Button>
+      <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#goToSettings" prefHeight="150.0" prefWidth="200.0" style="-fx-background-image: url('Menus/settings.jpg'); -fx-background-size: cover;" stylesheets="@menus.css" text="Account Settings" GridPane.columnIndex="1" GridPane.valignment="BOTTOM">
+         <font>
+            <Font size="20.0" />
+         </font>
+         <GridPane.margin>
+            <Insets bottom="30.0" left="30.0" right="50.0" top="50.0" />
+         </GridPane.margin>
+      </Button>
+      <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#logOut" prefHeight="60.0" prefWidth="140.0" style="-fx-background-image: url('Menus/logout.png'); -fx-background-size: cover;" stylesheets="@menus.css" text="Log Out" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+   </children>
+</GridPane>

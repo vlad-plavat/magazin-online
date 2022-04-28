@@ -5,6 +5,7 @@ import org.dizitart.no2.Document;
 import org.dizitart.no2.Nitrite;
 import org.dizitart.no2.NitriteCollection;
 import org.dizitart.no2.objects.ObjectRepository;
+import org.nl.controllers.RegistrationController;
 import org.nl.exceptions.UsernameAlreadyExistsException;
 import org.nl.exceptions.WrongPasswordException;
 import org.nl.exceptions.WrongUsernameException;
@@ -30,9 +31,21 @@ public class UserService {
         userRepository = database.getRepository(User.class);
     }
 
-    public static void addUser(String username, String password, String role, String aux) throws UsernameAlreadyExistsException {
+    public static User addUser(String username, String password, String role, String aux) throws UsernameAlreadyExistsException {
         checkUserDoesNotAlreadyExist(username);
         userRepository.insert(new User(username, encodePassword(username, password), role, aux));
+        return new User(username, encodePassword(username, password), role, aux);
+
+    }
+
+    public static void changeUserData(String username, String password, String aux) throws UsernameAlreadyExistsException {
+        if(!username.equals(RegistrationController.loggeduser.getUsername()))
+            checkUserDoesNotAlreadyExist(username);
+        String role = RegistrationController.loggeduser.getRole();
+        userRepository.remove(RegistrationController.loggeduser);
+        userRepository.insert(new User(username, encodePassword(username, password), role, aux));
+        //return new User(username, encodePassword(username, password), aux);
+
     }
     public static void readusers(){
         NitriteCollection nc = userRepository.getDocumentCollection();
@@ -43,7 +56,7 @@ public class UserService {
         }*/
     }
 
-    public static void checkLoginCredentials(String username, String password) throws WrongPasswordException, WrongUsernameException {
+    public static User checkLoginCredentials(String username, String password) throws WrongPasswordException, WrongUsernameException {
         User foundUser = null;
         for (User user : userRepository.find()) {
             if (Objects.equals(username, user.getUsername())) {
@@ -55,6 +68,8 @@ public class UserService {
 
         if(!foundUser.getPassword().equals(encodePassword(username, password)))
             throw new WrongPasswordException(username);
+
+        return foundUser;
     }
 
     private static void checkUserDoesNotAlreadyExist(String username) throws UsernameAlreadyExistsException {
@@ -64,7 +79,7 @@ public class UserService {
         }
     }
 
-    private static String encodePassword(String salt, String password) {
+    public static String encodePassword(String salt, String password) {
         MessageDigest md = getMessageDigest();
         md.update(salt.getBytes(StandardCharsets.UTF_8));
 
