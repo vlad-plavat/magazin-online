@@ -5,11 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane alignment="center" hgap="10"
-          prefHeight="720.0" prefWidth="1280.0"
-          style="-fx-background-image: url('background.png');" vgap="10"
-          xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="org.nl.controllers.RegistrationController">
+<GridPane alignment="center" hgap="10" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-image: url('background.png');" vgap="10" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.nl.controllers.RegistrationController">
     <padding>
         <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
     </padding>
@@ -35,9 +31,10 @@
 
     <Text fx:id="registrationMessage" textAlignment="CENTER" wrappingWidth="210.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
     <HBox alignment="CENTER" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="8">
-      <Button fx:id="backButton" mnemonicParsing="false" onAction="#backToLogin" text="Back" />
+      <Button fx:id="toLoginButton" mnemonicParsing="false" onAction="#backToLogin" text="Login..." />
         <Button fx:id="loginButton" contentDisplay="CENTER" onAction="#handleLoginAction" text="Login" />
       <Button fx:id="regButton" mnemonicParsing="false" onAction="#handleRegisterAction" text="Register" />
+      <Button fx:id="toRegButton" layoutX="146.0" layoutY="10.0" mnemonicParsing="false" onAction="#goToRegister" text="Register..." />
     </HBox>
    <columnConstraints>
       <ColumnConstraints />
