@@ -1,19 +1,13 @@
 package org.nl.services;
 
+import javafx.scene.control.TextField;
 import org.dizitart.no2.FindOptions;
-import org.dizitart.no2.Nitrite;
-import org.dizitart.no2.NitriteId;
+import org.dizitart.no2.SortOrder;
 import org.dizitart.no2.objects.Cursor;
-import org.dizitart.no2.objects.ObjectFilter;
 import org.dizitart.no2.objects.ObjectRepository;
 import org.dizitart.no2.objects.filters.ObjectFilters;
 import org.nl.exceptions.ProductIDAlreadyExistsException;
 import org.nl.model.Product;
-
-import java.util.ArrayList;
-import java.util.Objects;
-
-import static org.nl.services.FileSystemService.getPathToFile;
 
 public class ProductService {
 
@@ -47,5 +41,48 @@ public class ProductService {
 
     public static Cursor<Product> getAllProducts(){
         return productRepository.find();
+    }
+
+    public static Cursor<Product> getAllProducts(boolean ascending){
+        return productRepository.find(
+                FindOptions.sort("price" , ascending?SortOrder.Ascending:SortOrder.Descending)
+        );
+    }
+
+    public static boolean checkProductStockName(Product p, TextField searchField, boolean onlyStock) {
+        if(onlyStock && p.getStock()==0)
+            return false;
+        String[] splitStr = searchField.getText().split("\\s+");
+        for(String s : splitStr){
+            if(!p.getName().toLowerCase().contains(s.toLowerCase()))
+                return false;
+        }
+        return true;
+    }
+
+    public static boolean checkProductPrice(Product p, TextField minPrice, TextField maxPrice) {
+        minPrice.setStyle("-fx-background-color: white; -fx-border-width: 1px; -fx-border-color: grey;");
+        maxPrice.setStyle("-fx-background-color: white; -fx-border-width: 1px; -fx-border-color: grey;");
+        boolean checkMin = !minPrice.getText().isEmpty();
+        boolean checkMax = !maxPrice.getText().isEmpty();
+        if(checkMin){
+            try {
+                float minP = Float.parseFloat(minPrice.getText());
+                if(p.getPrice()+0.00001f<minP)
+                    return false;
+            }catch (NumberFormatException e){
+                minPrice.setStyle("-fx-background-color: lightcoral; -fx-border-width: 1px; -fx-border-color: grey;");
+            }
+        }
+        if(checkMax){
+            try {
+                float maxP = Float.parseFloat(maxPrice.getText());
+                if(p.getPrice()-0.00001f>maxP)
+                    return false;
+            }catch (NumberFormatException e){
+                maxPrice.setStyle("-fx-background-color: lightcoral; -fx-border-width: 1px; -fx-border-color: grey;");
+            }
+        }
+        return true;
     }
 }
