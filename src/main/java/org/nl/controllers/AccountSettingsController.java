@@ -124,6 +124,8 @@ public class AccountSettingsController {
             crStage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
             final Stage dialog = new Stage();
             dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.setTitle("Confirmation");
+            dialog.setResizable(false);
             dialog.initOwner(((Node) evt.getSource()).getScene().getWindow());
             dialog.getIcons().add(new Image("icon.png"));
             Scene scene = new Scene(root);

@@ -60,9 +60,10 @@ public class Shop {
                 throw new RuntimeException("Could not load fxml file item.fxml");
             Pane newPane = FXMLLoader.load(toFxml);
             pane.getChildren().add(newPane);
+
             ((Text)newPane.getChildren().get(1)).setText(p.getName());
             ((ImageView)newPane.getChildren().get(0)).setImage(new Image(p.getImageAddr()));
-            ((Text)newPane.getChildren().get(2)).setText(String.format("Price: %.2f",p.getPrice()));
+            ((Text)newPane.getChildren().get(2)).setText(String.format("Price: $%.2f",p.getPrice()));
             ((Text)newPane.getChildren().get(3)).setText("Dimensions: " + p.getDimensions());
             if(p.getStock()>0){
                 ((Text)newPane.getChildren().get(4)).setText("In stock");
@@ -71,6 +72,8 @@ public class Shop {
                 ((Text)newPane.getChildren().get(4)).setText("Out of stock");
                 ((Text)newPane.getChildren().get(4)).setFill(Color.RED);
             }
+            ((Text)newPane.getChildren().get(7)).setText(""+p.getIdProdct());
+
             newPane.setLayoutY(i*125);
         }catch(Exception e){
             System.out.println(e.getMessage());

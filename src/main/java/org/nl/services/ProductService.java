@@ -1,8 +1,12 @@
 package org.nl.services;
 
+import org.dizitart.no2.FindOptions;
 import org.dizitart.no2.Nitrite;
+import org.dizitart.no2.NitriteId;
 import org.dizitart.no2.objects.Cursor;
+import org.dizitart.no2.objects.ObjectFilter;
 import org.dizitart.no2.objects.ObjectRepository;
+import org.dizitart.no2.objects.filters.ObjectFilters;
 import org.nl.exceptions.ProductIDAlreadyExistsException;
 import org.nl.model.Product;
 
@@ -27,6 +31,11 @@ public class ProductService {
         Product p = new Product(idProdct,name,price,dimensions,description,stock,imageAddr);
         productRepository.insert(p);
         return p;
+    }
+
+    public static Product getProduct(int idProduct){
+        return productRepository.find(
+                ObjectFilters.eq("idProdct", idProduct), FindOptions.limit(0, 1)).toList().get(0);
     }
 
     private static void checkProductIDDoesNotAlreadyExist(int ID) throws ProductIDAlreadyExistsException {
