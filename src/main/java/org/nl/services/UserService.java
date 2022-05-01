@@ -60,7 +60,9 @@ public class UserService {
             checkUserDoesNotAlreadyExist(username);
         String role = RegistrationController.loggeduser.getRole();
         userRepository.remove(RegistrationController.loggeduser);
-        userRepository.insert(new User(username, encodePassword(username, password), role, aux));
+        User updatedUser = new User(username, encodePassword(username, password), role, aux);
+        userRepository.insert(updatedUser);
+        RegistrationController.loggeduser = updatedUser;
         //return new User(username, encodePassword(username, password), aux);
 
     }

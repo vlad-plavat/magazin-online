@@ -52,8 +52,8 @@ public class ProductService {
     public static boolean checkProductStockName(Product p, TextField searchField, boolean onlyStock) {
         if(onlyStock && p.getStock()==0)
             return false;
-        String[] splitStr = searchField.getText().split("\\s+");
-        for(String s : splitStr){
+        String[] words = searchField.getText().split("\\s+");
+        for(String s : words){
             if(!p.getName().toLowerCase().contains(s.toLowerCase()))
                 return false;
         }
