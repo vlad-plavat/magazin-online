@@ -7,8 +7,10 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.nl.services.FileSystemService;
+import org.nl.services.ProductService;
 import org.nl.services.UserService;
 
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -18,17 +20,23 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         initDirectory();
         UserService.initDatabase();
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("register.fxml"));
-        primaryStage.setTitle("NatureLeaf");
-        primaryStage.setScene(new Scene(root, 1280, 720));
-        primaryStage.getIcons().add(new Image("icon.png"));
-        primaryStage.show();
+        ProductService.initDatabase();
+        URL toFxml = getClass().getClassLoader().getResource("register.fxml");
+        if(toFxml != null) {
+            Parent root = FXMLLoader.load(toFxml);
+            primaryStage.setTitle("NatureLeaf");
+            primaryStage.setScene(new Scene(root, 1280, 720));
+            primaryStage.getIcons().add(new Image("icon.png"));
+            primaryStage.setResizable(false);
+            primaryStage.show();
+        }else throw new RuntimeException("FXML file not found!");
     }
 
     private void initDirectory() {
         Path applicationHomePath = FileSystemService.APPLICATION_HOME_PATH;
         if (!Files.exists(applicationHomePath))
-            applicationHomePath.toFile().mkdirs();
+            if(!applicationHomePath.toFile().mkdirs())
+                throw new RuntimeException("Could not initialize directories");
     }
 
 

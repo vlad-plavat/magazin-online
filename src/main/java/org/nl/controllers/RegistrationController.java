@@ -15,6 +15,7 @@ import org.nl.exceptions.UsernameAlreadyExistsException;
 import org.nl.exceptions.WrongPasswordException;
 import org.nl.exceptions.WrongUsernameException;
 import org.nl.model.User;
+import org.nl.services.StageService;
 import org.nl.services.UserService;
 
 import java.io.IOException;
@@ -23,9 +24,11 @@ public class RegistrationController {
 
     public static User loggeduser;
     @FXML
+    public Button toRegButton;
+    @FXML
     private Button regButton;
     @FXML
-    private Button backButton;
+    private Button toLoginButton;
     @FXML
     private Text registrationMessage;
     @FXML
@@ -46,11 +49,12 @@ public class RegistrationController {
         role.setValue("Client");
         role.managedProperty().bind(role.visibleProperty());
         auxField.managedProperty().bind(auxField.visibleProperty());
-        backButton.managedProperty().bind(backButton.visibleProperty());
+        toLoginButton.managedProperty().bind(toLoginButton.visibleProperty());
+        toRegButton.managedProperty().bind(toRegButton.visibleProperty());
         regButton.managedProperty().bind(regButton.visibleProperty());
         role.setVisible(false);
         auxField.setVisible(false);
-        backButton.setVisible(false);
+        toLoginButton.setVisible(false);
         regButton.setVisible(false);
     }
 
@@ -71,13 +75,26 @@ public class RegistrationController {
             auxField.setPromptText("Car license plate");
         }
 
-    }@FXML
+    }
+    @FXML
     public void backToLogin(){
         role.setVisible(false);
         auxField.setVisible(false);
-        backButton.setVisible(false);
+        toLoginButton.setVisible(false);
+        toRegButton.setVisible(true);
         regButton.setVisible(false);
         loginButton.setVisible(true);
+        registrationMessage.setText("");
+
+    }
+    @FXML
+    public void goToRegister(){
+        role.setVisible(true);
+        auxField.setVisible(true);
+        toLoginButton.setVisible(true);
+        toRegButton.setVisible(false);
+        regButton.setVisible(true);
+        loginButton.setVisible(false);
         registrationMessage.setText("");
 
     }
@@ -93,15 +110,8 @@ public class RegistrationController {
             loggeduser = UserService.checkLoginCredentials(name,pass);
             goToMenu(evt);
             //System.out.println(">>>>>trec la meniu");
-        } catch (WrongPasswordException | SimpleTextException e) {
+        } catch (WrongPasswordException | SimpleTextException | WrongUsernameException e) {
             registrationMessage.setText(e.getMessage());
-        } catch (WrongUsernameException e) {
-            registrationMessage.setText(e.getMessage() + " Create an account for " + name);
-            role.setVisible(true);
-            auxField.setVisible(true);
-            backButton.setVisible(true);
-            regButton.setVisible(true);
-            loginButton.setVisible(false);
         }
     }
     @FXML
@@ -135,15 +145,6 @@ public class RegistrationController {
     }
 
     private void goToMenu(ActionEvent evt){
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(Main.class.getClassLoader().getResource("Menus/"+loggeduser.getRole()+".fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        StageService.loadPage(evt,"Menus/"+loggeduser.getRole()+".fxml");
     }
 }
