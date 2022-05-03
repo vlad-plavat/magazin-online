@@ -40,8 +40,18 @@ public class ClientMenuController {
 
     }
     @FXML
-    public void goToFeedback(){
-        System.out.println("Feedback");
+    public void goToFeedback(ActionEvent evt){
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(Main.class.getClassLoader().getResource("Feedback.fxml"));
+            Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
     }
     @FXML
