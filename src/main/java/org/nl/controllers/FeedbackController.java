@@ -6,14 +6,23 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.nl.Main;
+import org.nl.services.FeedbackService;
+import org.nl.services.UserService;
+
 
 import java.io.IOException;
+import java.util.Date;
 
 import static org.nl.controllers.RegistrationController.loggeduser;
 
 public class FeedbackController {
+    @FXML
+    private TextField textField;
+
     @FXML
     public void backToMenu(ActionEvent evt){
         Parent root;
@@ -34,8 +43,11 @@ public class FeedbackController {
 
     @FXML
     public void sendFeedback(ActionEvent evt){
-        System.out.println("Send Feedback");
+        String text = textField.getText();
 
+        FeedbackService.addFeedback(loggeduser.getUsername(), text, new Date());
+        //FeedbackService.printAllFeedback();
+        backToMenu(evt);
     }
 
 }

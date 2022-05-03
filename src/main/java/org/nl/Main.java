@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import org.nl.services.FeedbackService;
 import org.nl.services.FileSystemService;
 import org.nl.services.UserService;
 
@@ -18,6 +19,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         initDirectory();
         UserService.initDatabase();
+        FeedbackService.initDatabase();
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("register.fxml"));
         primaryStage.setTitle("NatureLeaf");
         primaryStage.setScene(new Scene(root, 1280, 720));

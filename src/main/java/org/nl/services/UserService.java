@@ -23,8 +23,14 @@ public class UserService {
 
     private static ObjectRepository<User> userRepository;
 
+    public static Nitrite getDatabase() {
+        return database;
+    }
+
+    private static Nitrite database;
+
     public static void initDatabase() {
-        Nitrite database = Nitrite.builder()
+        database = Nitrite.builder()
                 .filePath(getPathToFile("natureleaf.db").toFile())
                 .openOrCreate("admin", "admin");
 
