@@ -7,17 +7,22 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.nl.Main;
 import org.nl.exceptions.SimpleTextException;
 import org.nl.exceptions.UsernameAlreadyExistsException;
 import org.nl.exceptions.WrongPasswordException;
 import org.nl.exceptions.WrongUsernameException;
+import org.nl.services.StageService;
 import org.nl.services.UserService;
 
 
 import java.io.IOException;
+import java.net.URL;
 
 import static org.nl.controllers.RegistrationController.loggeduser;
 import static org.nl.services.UserService.encodePassword;
@@ -33,6 +38,13 @@ public class AccountSettingsController {
     private TextField newPasswordField;
     @FXML
     private Text errorField;
+
+    private static Stage crStage;
+    public static Stage getCrStage() {
+        return crStage;
+    }
+
+
 
     @FXML
     public void initialize() {
@@ -52,19 +64,7 @@ public class AccountSettingsController {
 
     @FXML
     public void backToMenu(ActionEvent evt){
-        Parent root;
-        try {
-
-            root = FXMLLoader.load(Main.class.getClassLoader().getResource("Menus/"+loggeduser.getRole()+".fxml"));
-            Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
-
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        StageService.loadPage(evt,"Menus/"+loggeduser.getRole()+".fxml");
 
     }
     @FXML
@@ -100,5 +100,42 @@ public class AccountSettingsController {
 
     }
 
+    @FXML
+    public void deleteAccount(ActionEvent evt) {
+        UserService.readusers();
+        String name = usernameField.getText();
+        String oldPass = oldPasswordField.getText();
+        String newPass = newPasswordField.getText();
+        String aux = auxField.getText();
+        errorField.setText("");
 
+        try {
+            if(name.isBlank() || oldPass.isBlank())
+                throw new SimpleTextException("Please enter a username and password.");
+            if(!loggeduser.getPassword().equals(encodePassword(loggeduser.getUsername(), oldPass))){
+                throw new WrongPasswordException(loggeduser.getUsername());
+            }
+
+            URL toFxml = Main.class.getClassLoader().getResource("Popup.fxml");
+            if(toFxml == null)
+                throw new RuntimeException("Could not load Popup.fxml");
+            Parent root = FXMLLoader.load(toFxml);
+
+            crStage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
+            final Stage dialog = new Stage();
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.setTitle("Confirmation");
+            dialog.setResizable(false);
+            dialog.initOwner(((Node) evt.getSource()).getScene().getWindow());
+            dialog.getIcons().add(new Image("icon.png"));
+            Scene scene = new Scene(root);
+            dialog.setScene(scene);
+            dialog.show();
+
+        } catch (WrongPasswordException | SimpleTextException e) {
+            errorField.setText(e.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

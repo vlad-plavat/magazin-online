@@ -9,66 +9,38 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import org.nl.Main;
+import org.nl.services.StageService;
+import org.nl.services.UserService;
 
 import java.io.IOException;
+import java.net.URL;
 
 
 public class ClientMenuController {
     @FXML
-    public void goToStore(){
-        System.out.println("Store");
-
+    public void goToStore(ActionEvent evt){
+        StageService.loadPage(evt,"shop.fxml");
     }
     @FXML
     public void goToSettings(ActionEvent evt){
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(Main.class.getClassLoader().getResource("accountSettings.fxml"));
-            Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
+        StageService.loadPage(evt,"AccountSettings.fxml");
     }
     @FXML
-    public void goToOrders(){
+    public void goToOrders(ActionEvent evt){
         System.out.println("Orders");
 
     }
     @FXML
     public void goToFeedback(ActionEvent evt){
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(Main.class.getClassLoader().getResource("Feedback.fxml"));
-            Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        StageService.loadPage(evt,"Feedback.fxml");
 
     }
     @FXML
     public void logOut(ActionEvent evt){
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(Main.class.getClassLoader().getResource("register.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
+        URL root = Main.class.getClassLoader().getResource("register.fxml");
+        if(root != null) {
+            StageService.loadPage(evt, "register.fxml");
+            RegistrationController.loggeduser = null;
         }
-        Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-        RegistrationController.loggeduser = null;
-
     }
-
-
 }
