@@ -8,14 +8,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.nl.Main;
+import org.nl.services.StageService;
 
 import java.io.IOException;
 
 public class ManagerMenuController {
     @FXML
-    public void goToStoreCheck(){
-        System.out.println("StoreCheck");
-
+    public void goToStoreCheck(ActionEvent evt){
+        StageService.loadPage(evt,"StoreCheck.fxml");
     }
     @FXML
     public void goToSettings(ActionEvent evt){

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane layoutX="25.0" prefHeight="125.0" prefWidth="1225.0" style="-fx-background-color: #00000000;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.nl.controllers.ItemStoreController">
+    <ImageView fitHeight="100.0" fitWidth="180.0" layoutX="20.0" layoutY="12.5" pickOnBounds="true" preserveRatio="true">
+        <Image url="@icon.png" />
+    </ImageView>
+    <Text layoutX="213.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dulap cu 2 usi si chestii faine prin el" textAlignment="CENTER" wrappingWidth="800.0">
+        <font>
+            <Font name="System Bold" size="30.0" />
+        </font>
+    </Text>
+   <TextField fx:id="priceField" layoutX="305.0" layoutY="78.0" prefHeight="25.0" prefWidth="200.0" promptText="Price" />
+   <TextField fx:id="dimensionField" layoutX="642.0" layoutY="78.0" prefHeight="25.0" prefWidth="336.0" promptText="Dimension" />
+   <TextField fx:id="stockField" layoutX="1049.0" layoutY="21.0" promptText="Stock" />
+</Pane>
