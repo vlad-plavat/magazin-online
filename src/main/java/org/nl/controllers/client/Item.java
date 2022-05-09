@@ -1,11 +1,13 @@
 package org.nl.controllers.client;
 
+
 import javafx.fxml.FXML;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -15,8 +17,13 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.nl.Main;
+import org.nl.controllers.AccountSettingsController;
+import org.nl.controllers.RegistrationController;
+import org.nl.exceptions.OutOfStockException;
 import org.nl.model.Product;
 import org.nl.services.ProductService;
+import org.nl.services.StageService;
+import org.nl.services.UserService;
 
 import java.io.IOException;
 import java.net.URL;
@@ -64,6 +71,51 @@ public class Item {
             ((Text)pane.getChildren().get(4)).setFill(Color.RED);
         }
         ((Text)pane.getChildren().get(6)).setText(p.getDescription());
+    }
+
+    @FXML
+    public void order(ActionEvent evt){
+        try {
+            Product p = ProductService.getProduct(Integer.parseInt(idText.getText()));
+            if(p.getStock() == 0){
+                throw new OutOfStockException();
+            }
+
+            //send here
+
+            URL toFxml = Main.class.getClassLoader().getResource("OrderMenu.fxml");
+            if (toFxml == null)
+                throw new RuntimeException("Could not load OrderMenu.fxml");
+            Pane root = FXMLLoader.load(toFxml);
+
+            final Stage popup = new Stage();
+            popup.initModality(Modality.WINDOW_MODAL);
+            popup.setResizable(false);
+            popup.initOwner(((Node) evt.getSource()).getScene().getWindow());
+            popup.getIcons().add(new Image("icon.png"));
+            Scene scene = new Scene(root);
+            popup.setScene(scene);
+            popup.setTitle("Confirm order?");
+            setOrderProduct(root);
+            popup.show();
+        }catch(OutOfStockException e){
+            StageService.createTextPopup(evt,"Product out of stock","The selected product is out of stock.");
+        }
+        catch (IOException e){
+            System.out.println("IO error");
+        }
+    }
+
+    private void setOrderProduct(Pane pane){
+        //numele
+        Product p = ProductService.getProduct(Integer.parseInt(idText.getText()));
+        ((ImageView)((HBox)pane.getChildren().get(0)).getChildren().get(0)).setImage(new Image(p.getImageAddr()));
+        ((Text)pane.getChildren().get(1)).setText("Confirm ordering " + p.getName()+"?");
+        ((Text)pane.getChildren().get(2)).setText(String.format("Price: $%.2f",p.getPrice()));
+        ((Text)pane.getChildren().get(3)).setText("Dimensions: " + p.getDimensions());
+
+        ((TextField)pane.getChildren().get(4)).setText(RegistrationController.loggeduser.getAux());
+        ((Text)pane.getChildren().get(7)).setText(RegistrationController.loggeduser.getUsername());
     }
 
 }
