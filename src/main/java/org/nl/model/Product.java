@@ -84,6 +84,10 @@ public class Product {
         this.imageAddr = imageAddr;
     }
 
+    public void decreaseStock(){
+        stock--;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

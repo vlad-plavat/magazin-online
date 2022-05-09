@@ -5,14 +5,14 @@ import java.util.Objects;
 
 public class Order {
     private String username;
-    private String idProduct;
+    private int idProduct;
     private Date date;
     private String status;
     private String address;
 
     public Order(){}
 
-    public Order(String username, String idProduct, Date date, String status, String address) {
+    public Order(String username, int idProduct, Date date, String status, String address) {
         this.username = username;
         this.idProduct = idProduct;
         this.date = date;
@@ -28,11 +28,11 @@ public class Order {
         this.username = username;
     }
 
-    public String getIdProduct() {
+    public int getIdProduct() {
         return idProduct;
     }
 
-    public void setIdProduct(String idProduct) {
+    public void setIdProduct(int idProduct) {
         this.idProduct = idProduct;
     }
 

@@ -86,7 +86,10 @@ public class Item {
             URL toFxml = Main.class.getClassLoader().getResource("OrderMenu.fxml");
             if (toFxml == null)
                 throw new RuntimeException("Could not load OrderMenu.fxml");
-            Pane root = FXMLLoader.load(toFxml);
+            FXMLLoader newFXML = new FXMLLoader(toFxml);
+            Pane root = newFXML.load();
+            ((OrderMenu)newFXML.getController()).setPID(p.getIdProdct());
+            ((OrderMenu)newFXML.getController()).setMainStage((Stage) ((Node) evt.getSource()).getScene().getWindow());
 
             final Stage popup = new Stage();
             popup.initModality(Modality.WINDOW_MODAL);

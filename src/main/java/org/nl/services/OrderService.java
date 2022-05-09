@@ -13,9 +13,8 @@ public class OrderService {
 
     }
 
-    public static Order addOrder(String username, String idProduct, Date date, String status, String address){
-        Order o = new Order(username, idProduct, date, status, address);
+    public static void addOrder(String username, int idProduct, Date date, String address){
+        Order o = new Order(username, idProduct, date, "placed", address);
         orderRepository.insert(o);
-        return o;
     }
 }

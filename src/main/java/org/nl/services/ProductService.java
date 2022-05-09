@@ -6,8 +6,10 @@ import org.dizitart.no2.SortOrder;
 import org.dizitart.no2.objects.Cursor;
 import org.dizitart.no2.objects.ObjectRepository;
 import org.dizitart.no2.objects.filters.ObjectFilters;
+import org.nl.controllers.RegistrationController;
 import org.nl.exceptions.ProductIDAlreadyExistsException;
 import org.nl.model.Product;
+import org.nl.model.User;
 
 public class ProductService {
 
@@ -58,6 +60,13 @@ public class ProductService {
                 return false;
         }
         return true;
+    }
+
+    public static void orderProduct(int productID){
+        Product p = getProduct(productID);
+        productRepository.remove(p);
+        p.decreaseStock();
+        productRepository.insert(p);
     }
 
     public static boolean checkProductPrice(Product p, TextField minPrice, TextField maxPrice) {

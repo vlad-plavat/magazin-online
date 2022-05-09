@@ -31,6 +31,19 @@ public class StageService {
             e.printStackTrace();
         }
     }
+    public static void loadPage(Stage stg, String s){
+        try {
+            URL toFxml = Main.class.getClassLoader().getResource(s);
+            if(toFxml == null)
+                throw new RuntimeException("Could not load FXML file "+s);
+            Parent root = FXMLLoader.load(toFxml);
+            Scene scene = new Scene(root);
+            stg.setScene(scene);
+            stg.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void createTextPopup(ActionEvent evt, String title,String text){
         try {

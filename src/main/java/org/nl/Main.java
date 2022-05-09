@@ -6,10 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import org.nl.services.FeedbackService;
-import org.nl.services.FileSystemService;
-import org.nl.services.ProductService;
-import org.nl.services.UserService;
+import org.nl.model.Order;
+import org.nl.services.*;
 
 import java.net.URL;
 import java.nio.file.Files;
@@ -23,6 +21,7 @@ public class Main extends Application {
         UserService.initDatabase();
         FeedbackService.initDatabase();
         ProductService.initDatabase();
+        OrderService.initDatabase();
         URL toFxml = getClass().getClassLoader().getResource("register.fxml");
         if(toFxml != null) {
             Parent root = FXMLLoader.load(toFxml);
