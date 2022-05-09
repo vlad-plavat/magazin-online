@@ -32,10 +32,9 @@ public class ClientMenuController {
     }
     @FXML
     public void goToFeedback(ActionEvent evt){
-        System.out.println("Feedback");
+        StageService.loadPage(evt,"Feedback.fxml");
 
     }
-
     @FXML
     public void logOut(ActionEvent evt){
         URL root = Main.class.getClassLoader().getResource("register.fxml");

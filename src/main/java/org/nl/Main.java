@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import org.nl.services.FeedbackService;
 import org.nl.services.FileSystemService;
 import org.nl.services.ProductService;
 import org.nl.services.UserService;
@@ -20,6 +21,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         initDirectory();
         UserService.initDatabase();
+        FeedbackService.initDatabase();
         ProductService.initDatabase();
         URL toFxml = getClass().getClassLoader().getResource("register.fxml");
         if(toFxml != null) {
