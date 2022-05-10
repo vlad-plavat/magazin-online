@@ -8,44 +8,27 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.nl.Main;
+import org.nl.services.StageService;
 
 import java.io.IOException;
+import java.net.URL;
 
 public class WorkerMenuController {
     @FXML
-    public void goToOrderProcessing(){
-        System.out.println("OrderProcessing");
-
+    public void goToOrderProcessing(ActionEvent evt){
+        StageService.loadPage(evt,"WorkerFXML.fxml");
     }
     @FXML
     public void goToSettings(ActionEvent evt){
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(Main.class.getClassLoader().getResource("accountSettings.fxml"));
-            Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
+        StageService.loadPage(evt,"AccountSettings.fxml");
     }
+
     @FXML
     public void logOut(ActionEvent evt){
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(Main.class.getClassLoader().getResource("register.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
+        URL root = Main.class.getClassLoader().getResource("register.fxml");
+        if(root != null) {
+            StageService.loadPage(evt, "register.fxml");
+            RegistrationController.loggeduser = null;
         }
-        Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-        RegistrationController.loggeduser = null;
-
     }
 }

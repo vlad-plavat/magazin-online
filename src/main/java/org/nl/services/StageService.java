@@ -66,4 +66,26 @@ public class StageService {
             e.printStackTrace();
         }
     }
+
+    public static void createYesNoPopup(ActionEvent evt, String title,String text){
+        try {
+            URL toFxml = Main.class.getClassLoader().getResource("PopupYesNo.fxml");
+            if (toFxml == null)
+                throw new RuntimeException("Could not load PopupYesNo.fxml");
+            Pane root = FXMLLoader.load(toFxml);
+
+            ((Text)((HBox)root.getChildren().get(0)).getChildren().get(0)).setText(text);
+            final Stage dialog = new Stage();
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.setTitle(title);
+            dialog.setResizable(false);
+            dialog.initOwner(((Node) evt.getSource()).getScene().getWindow());
+            dialog.getIcons().add(new Image("icon.png"));
+            Scene scene = new Scene(root);
+            dialog.setScene(scene);
+            dialog.show();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
 }

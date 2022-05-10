@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="100.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.nl.controllers.PopupYesNo">
+   <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="300.0">
+      <opaqueInsets>
+         <Insets/>
+      </opaqueInsets>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Are you sure you want to delete your account?"
+            textAlignment="CENTER">
+         <HBox.margin>
+            <Insets top="15.0"/>
+         </HBox.margin>
+      </Text>
+   </HBox>
+   <Button layoutX="75.0" layoutY="50.0" mnemonicParsing="false" onAction="#confirm" text="Yes" />
+   <Button layoutX="175.0" layoutY="50.0" mnemonicParsing="false" onAction="#goBack" text="No" />
+</AnchorPane>
