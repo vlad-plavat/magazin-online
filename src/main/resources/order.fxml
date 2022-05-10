@@ -14,7 +14,7 @@
             <Font name="System Bold" size="30.0" />
         </font>
     </Text>
-    <Text layoutX="204.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Price: 76.9$" textAlignment="CENTER" wrappingWidth="399.462890625">
+    <Text layoutX="1004.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Price: 76.9$" textAlignment="CENTER" wrappingWidth="193.462890625">
         <font>
             <Font size="22.0" />
         </font>
@@ -25,4 +25,9 @@
         </font>
     </Text>
     <Button layoutX="1065.0" layoutY="79.0" mnemonicParsing="false" onAction="#processOrder" text="Process order" />
+   <Text layoutX="224.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date: " textAlignment="CENTER" wrappingWidth="354.4628601074219">
+      <font>
+         <Font size="22.0" />
+      </font>
+   </Text>
 </Pane>

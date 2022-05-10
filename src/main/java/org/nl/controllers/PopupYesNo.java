@@ -6,13 +6,35 @@ import javafx.scene.Node;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 public class PopupYesNo {
-    @FXML
-    private Text question;
+
+    private Method onAct;
     private Object target;
+    //private int arg;
+
+    public void setOnAct(Method onAct) {
+        this.onAct = onAct;
+    }
+
+    public void setTarget(Object target) {
+        this.target = target;
+    }
+
+    /*public void setArg(int arg) {
+        this.arg = arg;
+    }*/
+
     @FXML
     public void confirm(ActionEvent evt){
-
+        try {
+            onAct.invoke(target);
+            goBack(evt);
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
     @FXML
     public void goBack(ActionEvent evt){

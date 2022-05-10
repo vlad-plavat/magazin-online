@@ -12,8 +12,10 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.nl.Main;
+import org.nl.controllers.PopupYesNo;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.net.URL;
 
 public class StageService {
@@ -67,12 +69,17 @@ public class StageService {
         }
     }
 
-    public static void createYesNoPopup(ActionEvent evt, String title,String text){
+    public static void createYesNoPopup(ActionEvent evt, String title,String text,
+                                        Object target, Method onAct){
         try {
             URL toFxml = Main.class.getClassLoader().getResource("PopupYesNo.fxml");
             if (toFxml == null)
                 throw new RuntimeException("Could not load PopupYesNo.fxml");
-            Pane root = FXMLLoader.load(toFxml);
+            FXMLLoader loader = new FXMLLoader(toFxml);
+            Pane root = loader.load();
+            ((PopupYesNo)loader.getController()).setTarget(target);
+            ((PopupYesNo)loader.getController()).setOnAct(onAct);
+            //((PopupYesNo)loader.getController()).setArg(arg);
 
             ((Text)((HBox)root.getChildren().get(0)).getChildren().get(0)).setText(text);
             final Stage dialog = new Stage();

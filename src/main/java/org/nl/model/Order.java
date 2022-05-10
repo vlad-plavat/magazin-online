@@ -60,6 +60,8 @@ public class Order {
         this.address = address;
     }
 
+    public void process(){status = "processed";}
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

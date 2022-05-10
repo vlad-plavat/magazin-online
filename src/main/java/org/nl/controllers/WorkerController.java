@@ -19,6 +19,7 @@ import org.nl.services.ProductService;
 import org.nl.services.StageService;
 
 import java.net.URL;
+import java.text.SimpleDateFormat;
 
 public class WorkerController {
 
@@ -46,9 +47,12 @@ public class WorkerController {
         Cursor<Order> all = OrderService.getAllPlacedOrders();
 
         int i = 0;
-        for(Order p : all){
-            addOrderOnScreen(p, i);
-            i++;
+        for(Order o : all){
+            Product p = ProductService.getProduct(o.getIdProduct());
+            if(OrderService.checkOrderName(p.getName(),searchField.getText())) {
+                addOrderOnScreen(o, i);
+                i++;
+            }
         }
         pane.setPrefHeight(i*125);
     }
@@ -59,15 +63,21 @@ public class WorkerController {
             URL toFxml = Main.class.getClassLoader().getResource("order.fxml");
             if(toFxml == null)
                 throw new RuntimeException("Could not load fxml file item.fxml");
-            Pane newPane = FXMLLoader.load(toFxml);
-            pane.getChildren().add(newPane);
+            FXMLLoader loader = new FXMLLoader(toFxml);
+            Pane newPane = loader.load();
+            ((OrderItem)loader.getController()).setOrderDate(o.getDate());
+            ((OrderItem)loader.getController()).setUserOrd(o.getUsername());
+            ((OrderItem)loader.getController()).setWk(this);
 
+            pane.getChildren().add(newPane);
             Product p = ProductService.getProduct(o.getIdProduct());
 
             ((ImageView)newPane.getChildren().get(0)).setImage(new Image(p.getImageAddr()));
             ((Text)newPane.getChildren().get(1)).setText(p.getName());
             ((Text)newPane.getChildren().get(2)).setText(String.format("Price: $%.2f",p.getPrice()));
             ((Text)newPane.getChildren().get(3)).setText("Dimensions: " + p.getDimensions());
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+            ((Text)newPane.getChildren().get(5)).setText("Order date: " + formatter.format(o.getDate()));
 
 
 
