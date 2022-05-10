@@ -30,7 +30,7 @@
         </font>
     </Text>
     <Button layoutX="1065.0" layoutY="79.0" mnemonicParsing="false" onAction="#detailsPage" text="Details" />
-    <Button layoutX="1164.0" layoutY="79.0" mnemonicParsing="false" text="Order" />
+    <Button layoutX="1164.0" layoutY="79.0" mnemonicParsing="false" onAction="#order" text="Order" />
    <Text fx:id="idText" fill="TRANSPARENT" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
       <font>
          <Font size="0.01" />
