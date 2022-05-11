@@ -1,18 +1,13 @@
 package org.nl.services;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.dizitart.no2.Cursor;
-import org.dizitart.no2.Document;
 import org.dizitart.no2.Nitrite;
 import org.dizitart.no2.NitriteCollection;
 import org.dizitart.no2.objects.ObjectRepository;
 import org.nl.Main;
-import org.nl.controllers.AccountSettingsController;
 import org.nl.controllers.RegistrationController;
 import org.nl.exceptions.UsernameAlreadyExistsException;
 import org.nl.exceptions.WrongPasswordException;
@@ -24,7 +19,6 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Iterator;
 import java.util.Objects;
 
 import static org.nl.services.FileSystemService.getPathToFile;
@@ -67,14 +61,14 @@ public class UserService {
 
     }
 
-    public static void deleteUser(ActionEvent evt){
+    public static void deleteUser(){
         userRepository.remove(RegistrationController.loggeduser);
         try {
             URL toFxml = Main.class.getClassLoader().getResource("register.fxml");
             if(toFxml == null)
                 throw new RuntimeException("Could not load FXML file register.fxml");
             Parent root = FXMLLoader.load(toFxml);
-            Stage stage = AccountSettingsController.getCrStage();
+            Stage stage = StageService.getMainStage();
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();

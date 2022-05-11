@@ -39,10 +39,7 @@ public class AccountSettingsController {
     @FXML
     private Text errorField;
 
-    private static Stage crStage;
-    public static Stage getCrStage() {
-        return crStage;
-    }
+
 
 
 
@@ -116,25 +113,12 @@ public class AccountSettingsController {
                 throw new WrongPasswordException(loggeduser.getUsername());
             }
 
-            URL toFxml = Main.class.getClassLoader().getResource("Popup.fxml");
-            if(toFxml == null)
-                throw new RuntimeException("Could not load Popup.fxml");
-            Parent root = FXMLLoader.load(toFxml);
-
-            crStage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
-            final Stage dialog = new Stage();
-            dialog.initModality(Modality.APPLICATION_MODAL);
-            dialog.setTitle("Confirmation");
-            dialog.setResizable(false);
-            dialog.initOwner(((Node) evt.getSource()).getScene().getWindow());
-            dialog.getIcons().add(new Image("icon.png"));
-            Scene scene = new Scene(root);
-            dialog.setScene(scene);
-            dialog.show();
+            StageService.createYesNoPopup(evt,"Confirmation","Are you sure you want to delete your account?",
+                    null,UserService.class.getMethod("deleteUser"));
 
         } catch (WrongPasswordException | SimpleTextException e) {
             errorField.setText(e.getMessage());
-        } catch (IOException e) {
+        } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
     }

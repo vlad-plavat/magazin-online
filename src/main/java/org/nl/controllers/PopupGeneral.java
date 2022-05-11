@@ -3,13 +3,12 @@ package org.nl.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-public class PopupYesNo {
+public class PopupGeneral {
 
     private Method onAct;
     private Object target;
