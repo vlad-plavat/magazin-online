@@ -1,12 +1,14 @@
 package org.nl.services;
 
-import org.dizitart.no2.Cursor;
+import javafx.scene.control.TextField;
+import org.dizitart.no2.FindOptions;
+import org.dizitart.no2.SortOrder;
+import org.dizitart.no2.objects.Cursor;
 import org.dizitart.no2.Document;
 import org.dizitart.no2.NitriteCollection;
 import org.dizitart.no2.objects.ObjectRepository;
 import org.nl.model.Feedback;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
@@ -19,21 +21,31 @@ public class FeedbackService {
 
     }
 
-    public static Feedback addFeedback(String username, String text, Date date){
+    public static void addFeedback(String username, String text, Date date){
         feedbackRepository.insert(new Feedback(username, text, date));
-        return new Feedback(username, text, date);
     }
 
     public static void printAllFeedback(){
         NitriteCollection nc = feedbackRepository.getDocumentCollection();
-        Cursor lind = nc.find();
-        Iterator<Document> it = lind.iterator();
-        while (it.hasNext()) {
-            Document d = it.next();
+        org.dizitart.no2.Cursor lind = nc.find();
+        for (Document d : lind) {
             SimpleDateFormat ft = new SimpleDateFormat("yyyy.MM.dd 'at' hh:mm:ss");
-            System.out.println( "" + d.get("username") + " " + d.get("text") + " " + ft.format(d.get("date")) );
+            System.out.println("" + d.get("username") + " " + d.get("text") + " " + ft.format(d.get("date")));
         }
-        System.out.println("");
+        System.out.println();
     }
 
+    public static Cursor<Feedback> getAllFeedbacks() {
+        return feedbackRepository.find(
+                FindOptions.sort("date" , SortOrder.Descending)
+        );
+    }
+    public static boolean checkText(Feedback p, TextField searchField) {
+        String[] words = searchField.getText().split("\\s+");
+        for(String s : words){
+            if(!p.getText().toLowerCase().contains(s.toLowerCase()))
+                return false;
+        }
+        return true;
+    }
 }
