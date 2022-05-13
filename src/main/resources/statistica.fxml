@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-image: url('background.png');" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.nl.controllers.StatisticsController">
+   <Text layoutY="76.7685546875" strokeType="OUTSIDE" strokeWidth="0.0" text="Company statistics" textAlignment="CENTER" wrappingWidth="1280.0" AnchorPane.topAnchor="39.0">
+      <font>
+         <Font name="Segoe UI Semibold" size="35.0" />
+      </font>
+   </Text>
+   <Button layoutX="75.0" layoutY="50.0" mnemonicParsing="false" onAction="#goBack" text="Back to menu" />
+   <BarChart fx:id="chart" layoutY="150.0" prefHeight="570.0" prefWidth="1280.0">
+      <xAxis>
+         <CategoryAxis side="BOTTOM" />
+      </xAxis>
+      <yAxis>
+         <NumberAxis side="LEFT" />
+      </yAxis>
+   </BarChart>
+   <DatePicker fx:id="datePicker" layoutX="1038.0" layoutY="50.0" />
+   <ChoiceBox fx:id="price_units" layoutX="300.0" layoutY="102.0" prefWidth="150.0" />
+   <ChoiceBox fx:id="time" layoutX="860.0" layoutY="102.0" prefWidth="150.0" />
+   <Text layoutX="254.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Show:" />
+   <Text layoutX="777.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time interval:" />
+</AnchorPane>
