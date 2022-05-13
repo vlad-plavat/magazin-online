@@ -80,7 +80,12 @@ public class StageService {
     }
 
     public static void createYesNoPopup(ActionEvent evt, String title,String text,
-                                        Object target, Method onAct){
+                                        Object target, Method onAct, Object...args){
+        createYesNoPopup(((Node) evt.getSource()).getScene(),title,text,target,onAct,args);
+    }
+
+    public static void createYesNoPopup(Scene scn, String title,String text,
+                                        Object target, Method onAct, Object...args){
         try {
             URL toFxml = Main.class.getClassLoader().getResource("PopupYesNo.fxml");
             if (toFxml == null)
@@ -89,14 +94,14 @@ public class StageService {
             Pane root = loader.load();
             ((PopupGeneral)loader.getController()).setTarget(target);
             ((PopupGeneral)loader.getController()).setOnAct(onAct);
-            //((PopupYesNo)loader.getController()).setArg(arg);
+            ((PopupGeneral)loader.getController()).setArgs(args);
 
             ((Text)((HBox)root.getChildren().get(0)).getChildren().get(0)).setText(text);
             final Stage dialog = new Stage();
             dialog.initModality(Modality.APPLICATION_MODAL);
             dialog.setTitle(title);
             dialog.setResizable(false);
-            dialog.initOwner(((Node) evt.getSource()).getScene().getWindow());
+            dialog.initOwner(scn.getWindow());
             dialog.getIcons().add(new Image("icon.png"));
             Scene scene = new Scene(root);
             dialog.setScene(scene);

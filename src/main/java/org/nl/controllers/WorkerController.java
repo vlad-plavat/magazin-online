@@ -76,7 +76,7 @@ public class WorkerController {
             ((Text)newPane.getChildren().get(1)).setText(p.getName());
             ((Text)newPane.getChildren().get(2)).setText(String.format("Price: $%.2f",p.getPrice()));
             ((Text)newPane.getChildren().get(3)).setText("Dimensions: " + p.getDimensions());
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             ((Text)newPane.getChildren().get(5)).setText("Order date: " + formatter.format(o.getDate()));
 
 
