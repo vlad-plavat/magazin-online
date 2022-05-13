@@ -6,7 +6,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import org.nl.model.Order;
 import org.nl.services.*;
 
 import java.net.URL;
@@ -29,6 +28,7 @@ public class Main extends Application {
             primaryStage.setScene(new Scene(root, 1280, 720));
             primaryStage.getIcons().add(new Image("icon.png"));
             primaryStage.setResizable(false);
+            StageService.setMainStage(primaryStage);
             primaryStage.show();
         }else throw new RuntimeException("FXML file not found!");
     }

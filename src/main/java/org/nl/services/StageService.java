@@ -12,11 +12,23 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.nl.Main;
+import org.nl.controllers.PopupGeneral;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.net.URL;
 
 public class StageService {
+
+    private static Stage mainStage;
+    public static Stage getMainStage() {
+        return mainStage;
+    }
+
+    public static void setMainStage(Stage mainStage) {
+        StageService.mainStage = mainStage;
+    }
+
     public static void loadPage(ActionEvent evt, String s){
         try {
             URL toFxml = Main.class.getClassLoader().getResource(s);
@@ -51,6 +63,33 @@ public class StageService {
             if (toFxml == null)
                 throw new RuntimeException("Could not load PopupFeedback.fxml");
             Pane root = FXMLLoader.load(toFxml);
+
+            ((Text)((HBox)root.getChildren().get(0)).getChildren().get(0)).setText(text);
+            final Stage dialog = new Stage();
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.setTitle(title);
+            dialog.setResizable(false);
+            dialog.initOwner(((Node) evt.getSource()).getScene().getWindow());
+            dialog.getIcons().add(new Image("icon.png"));
+            Scene scene = new Scene(root);
+            dialog.setScene(scene);
+            dialog.show();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void createYesNoPopup(ActionEvent evt, String title,String text,
+                                        Object target, Method onAct){
+        try {
+            URL toFxml = Main.class.getClassLoader().getResource("PopupYesNo.fxml");
+            if (toFxml == null)
+                throw new RuntimeException("Could not load PopupYesNo.fxml");
+            FXMLLoader loader = new FXMLLoader(toFxml);
+            Pane root = loader.load();
+            ((PopupGeneral)loader.getController()).setTarget(target);
+            ((PopupGeneral)loader.getController()).setOnAct(onAct);
+            //((PopupYesNo)loader.getController()).setArg(arg);
 
             ((Text)((HBox)root.getChildren().get(0)).getChildren().get(0)).setText(text);
             final Stage dialog = new Stage();
