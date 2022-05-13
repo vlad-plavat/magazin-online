@@ -25,7 +25,7 @@ public class ManagerMenuController {
     }
     @FXML
     public void goToStatistics(ActionEvent evt){
-        StageService.loadPage(evt,"statistics.fxml");
+        StageService.loadPage(evt,"statistica.fxml");
     }
 
     @FXML
