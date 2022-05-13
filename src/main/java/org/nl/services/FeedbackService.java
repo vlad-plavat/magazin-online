@@ -7,7 +7,10 @@ import org.dizitart.no2.objects.Cursor;
 import org.dizitart.no2.Document;
 import org.dizitart.no2.NitriteCollection;
 import org.dizitart.no2.objects.ObjectRepository;
+import org.dizitart.no2.objects.filters.ObjectFilters;
+import org.nl.controllers.FeedbackViewController;
 import org.nl.model.Feedback;
+import org.nl.model.Order;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -47,5 +50,11 @@ public class FeedbackService {
                 return false;
         }
         return true;
+    }
+
+    public static void deleteFeedback(Feedback f, FeedbackViewController fvc) {
+        feedbackRepository.remove(ObjectFilters.and(
+                ObjectFilters.eq("date", f.getDate()), ObjectFilters.eq("username", f.getUsername())));
+        fvc.reloadFeedback();
     }
 }

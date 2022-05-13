@@ -70,13 +70,25 @@ public class FeedbackViewController {
             ((Text)newPane.getChildren().get(2)).setText("User:\n"+f.getUsername());
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy\nHH:mm:ss");
             ((Text)newPane.getChildren().get(3)).setText("Date:\n" + formatter.format(f.getDate()));
-            /*((Button)newPane.getChildren().get(4)).setOnAction(
-                    (evt)-> StageService.
-            );*/
+            ((Button)newPane.getChildren().get(4)).setOnAction(
+                    (evt)-> {
+                        try {
+                            StageService.createYesNoPopup(pane.getScene(),"Delete feedback?",
+                                    "Are you sure you want ti delete the feedback?",
+                                    null,
+                                    FeedbackService.class.getMethod("deleteFeedback", Feedback.class, FeedbackViewController.class),
+                                    f,this);
+                        } catch (NoSuchMethodException e) {
+                            e.printStackTrace();
+                        }
+                    }
+            );
 
             newPane.setLayoutY(i*250);
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
     }
+
+
 }
