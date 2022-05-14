@@ -4,9 +4,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import org.nl.model.Product;
 import org.nl.services.ProductService;
+
+import javax.validation.constraints.Null;
 
 public class ItemStoreController {
     @FXML
@@ -52,10 +55,23 @@ public class ItemStoreController {
         String name = nameField.getText();
 
         if(!(price.isBlank() || description.isBlank() || dimensions.isBlank() || stock.isBlank())){
-            ProductService.changeProductData(productId, name, Float.parseFloat(price),  dimensions, description, Integer.parseInt(stock), p.getImageAddr());
+            try {
+                if (priceField.getTooltip()!= null) {
+                    priceField.getTooltip().hide();
+                }
+                priceField.setTooltip(null);
+                ProductService.changeProductData(productId, name, Float.parseFloat(price), dimensions, description, Integer.parseInt(stock), p.getImageAddr());
+                ((Node)evt.getSource()).setStyle("-fx-background-color: white; -fx-border-width: 1px; -fx-border-color: grey;");
+            }catch (NumberFormatException e){
+
+                priceField.setTooltip(new Tooltip("Check values entered!"));
+                priceField.getTooltip().setAutoHide(true);
+                priceField.getTooltip().show(((Node) evt.getSource()).getScene().getWindow());
+            }
         }
-        ((Node)evt.getSource()).setStyle("-fx-background-color: white; -fx-border-width: 1px; -fx-border-color: grey;");
+
     }
+
 
     @FXML
     public void turnColor(MouseEvent evt){

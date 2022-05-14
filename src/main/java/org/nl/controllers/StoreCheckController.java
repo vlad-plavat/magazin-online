@@ -35,6 +35,8 @@ public class StoreCheckController {
     public CheckBox onlyStock;
     @FXML
     public TextField searchField;
+    @FXML
+    public AnchorPane parentPane;
 
     //private ArrayList<Pane> produseAfisate = new ArrayList<>();
 
@@ -69,7 +71,6 @@ public class StoreCheckController {
     }
 
     private void addProductOnScreen(Product p, int i){
-        System.out.println(i);
         try {
             URL toFxml = Main.class.getClassLoader().getResource("itemStoreCheck.fxml");
             if(toFxml == null)
