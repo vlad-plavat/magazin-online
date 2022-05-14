@@ -64,6 +64,13 @@ public class ProductService {
         return true;
     }
 
+    public static void orderProduct(int productID){
+        Product p = getProduct(productID);
+        productRepository.remove(p);
+        p.decreaseStock();
+        productRepository.insert(p);
+    }
+
     public static boolean checkProductPrice(Product p, TextField minPrice, TextField maxPrice) {
         minPrice.setStyle("-fx-background-color: white; -fx-border-width: 1px; -fx-border-color: grey;");
         maxPrice.setStyle("-fx-background-color: white; -fx-border-width: 1px; -fx-border-color: grey;");

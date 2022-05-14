@@ -4,8 +4,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="100.0" prefWidth="255.0" xmlns="http://javafx.com/javafx/16"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.nl.controllers.PopupController">
-    <Text layoutX="18.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your feedback has been sent successfully." textAlignment="CENTER" />
-    <Button layoutX="112.0" layoutY="50.0" mnemonicParsing="false" onAction="#goBack" text="Ok" />
+<AnchorPane prefHeight="100.0" prefWidth="255.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.nl.controllers.PopupGeneral">
+    <HBox alignment="CENTER" prefHeight="35.0" prefWidth="255.0">
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="kgndv" textAlignment="CENTER"/>
+    </HBox>
+    <Button layoutX="112.0" layoutY="50.0" mnemonicParsing="false" onAction="#goBack" text="Ok" AnchorPane.topAnchor="50.0" />
 </AnchorPane>
