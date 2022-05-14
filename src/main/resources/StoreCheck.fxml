@@ -19,6 +19,6 @@
     <ChoiceBox fx:id="sortBy" layoutX="1086.0" layoutY="94.0" prefWidth="150.0" />
     <CheckBox fx:id="onlyStock" layoutX="948.0" layoutY="98.0" mnemonicParsing="false" onAction="#reloadProducts" text="Only in stock" />
     <TextField fx:id="searchField" layoutX="213.0" layoutY="94.0" onAction="#reloadProducts" prefHeight="26.0" prefWidth="216.0" promptText="🔍 Search product by name" />
-   <Button layoutX="1087.0" layoutY="59.0" mnemonicParsing="false" onAction="#saveChanges" prefHeight="26.0" prefWidth="150.0" text="Save Changes" />
+   <Button fx:id="saveChanges" layoutX="1087.0" layoutY="59.0" mnemonicParsing="false" onAction="#reloadProducts" prefHeight="26.0" prefWidth="150.0" text="Save Changes" />
 
 </AnchorPane>

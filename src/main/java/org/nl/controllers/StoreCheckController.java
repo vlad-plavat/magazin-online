@@ -115,11 +115,10 @@ public class StoreCheckController {
         int i = 0;
 
         for(Product p : all){
-            if(ProductService.checkProductStockName(p,searchField,onlyStock.isSelected()))
-                if(ProductService.checkProductPrice(p,minPrice,maxPrice)) {
+            if(ProductService.checkProductStockName(p,searchField,onlyStock.isSelected())) {
                     addProductOnScreen(p, i);
                     i++;
-                }
+            }
         }
         pane.setPrefHeight(i*125);
     }
