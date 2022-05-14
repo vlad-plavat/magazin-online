@@ -3,6 +3,8 @@ package org.nl.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
@@ -12,6 +14,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import org.dizitart.no2.objects.Cursor;
 import org.nl.Main;
 import org.nl.exceptions.SimpleTextException;
@@ -23,6 +27,7 @@ import org.nl.services.StageService;
 import org.nl.services.UserService;
 
 import java.awt.*;
+import java.io.IOException;
 import java.net.URL;
 
 import static org.nl.controllers.RegistrationController.loggeduser;
@@ -134,6 +139,24 @@ public class StoreCheckController {
 
     @FXML
     public void openAddDialog(ActionEvent evt){
+        try {
+            URL toFxml = Main.class.getClassLoader().getResource("addProduct.fxml");
+            if (toFxml == null)
+                throw new RuntimeException("Could not load addProduct.fxml");
+            Pane root = FXMLLoader.load(toFxml);
 
+            final Stage infoPage = new Stage();
+            infoPage.initModality(Modality.WINDOW_MODAL);
+            infoPage.setResizable(false);
+            infoPage.initOwner(((Node) evt.getSource()).getScene().getWindow());
+            infoPage.getIcons().add(new Image("icon.png"));
+            infoPage.setTitle("Add a new product");
+            Scene scene = new Scene(root);
+            infoPage.setScene(scene);
+            //setProduct(root,infoPage);
+            infoPage.show();
+        }catch (IOException e){
+            System.out.println("IO error");
+        }
     }
 }
