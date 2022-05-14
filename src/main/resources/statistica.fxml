@@ -12,7 +12,7 @@
       </font>
    </Text>
    <Button layoutX="75.0" layoutY="50.0" mnemonicParsing="false" onAction="#goBack" text="Back to menu" />
-   <BarChart fx:id="chart" layoutY="150.0" prefHeight="570.0" prefWidth="1280.0">
+   <BarChart fx:id="chart" animated="false" layoutY="150.0" legendVisible="false" prefHeight="570.0" prefWidth="1280.0">
       <xAxis>
          <CategoryAxis side="BOTTOM" />
       </xAxis>
@@ -20,7 +20,7 @@
          <NumberAxis side="LEFT" />
       </yAxis>
    </BarChart>
-   <DatePicker fx:id="datePicker" layoutX="1038.0" layoutY="50.0" />
+   <DatePicker fx:id="datePicker" layoutX="1038.0" layoutY="50.0" onAction="#reloadGraph" />
    <ChoiceBox fx:id="price_units" layoutX="300.0" layoutY="102.0" prefWidth="150.0" />
    <ChoiceBox fx:id="time" layoutX="860.0" layoutY="102.0" prefWidth="150.0" />
    <Text layoutX="254.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Show:" />

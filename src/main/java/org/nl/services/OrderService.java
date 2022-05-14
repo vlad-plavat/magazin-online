@@ -49,7 +49,8 @@ public class OrderService {
         orderRepository.insert(o);
     }
 
-    public static Cursor<Order> getAllOrders() {
-        return orderRepository.find();
+    public static Cursor<Order> getAllOrdersBetween(Date d1, Date d2) {
+        return orderRepository.find(ObjectFilters.and(
+                ObjectFilters.gte("date", d1), ObjectFilters.lt("date", d2)));
     }
 }
