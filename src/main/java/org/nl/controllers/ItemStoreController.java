@@ -30,6 +30,8 @@ public class ItemStoreController {
     private TextField dimensionField;
     @FXML
     private TextField stockField;
+    @FXML
+    private TextField descriptionField;
 
     private int productId;
 
@@ -49,6 +51,7 @@ public class ItemStoreController {
         priceField.setText(""+p.getPrice());
         dimensionField.setText(""+p.getDimensions());
         stockField.setText(""+p.getStock());
+        descriptionField.setText(""+p.getDescription());
     }
 
 

@@ -9,12 +9,13 @@
     <ImageView fitHeight="100.0" fitWidth="180.0" layoutX="20.0" layoutY="12.5" pickOnBounds="true" preserveRatio="true">
         <Image url="@icon.png" />
     </ImageView>
-    <Text layoutX="213.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dulap cu 2 usi si chestii faine prin el" textAlignment="CENTER" wrappingWidth="800.0">
+    <Text layoutX="213.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dulap cu 2 usi si chestii faine prin el" textAlignment="CENTER" wrappingWidth="800.0">
         <font>
             <Font name="System Bold" size="30.0" />
         </font>
     </Text>
-   <TextField fx:id="priceField" layoutX="305.0" layoutY="78.0" prefHeight="25.0" prefWidth="200.0" promptText="Price" />
-   <TextField fx:id="dimensionField" layoutX="642.0" layoutY="78.0" prefHeight="25.0" prefWidth="336.0" promptText="Dimension" />
+   <TextField fx:id="priceField" layoutX="294.0" layoutY="54.0" prefHeight="25.0" prefWidth="200.0" promptText="Price" />
+   <TextField fx:id="dimensionField" layoutX="691.0" layoutY="54.0" prefHeight="25.0" prefWidth="283.0" promptText="Dimension" />
    <TextField fx:id="stockField" layoutX="1049.0" layoutY="21.0" promptText="Stock" />
+   <TextField fx:id="descriptionField" layoutX="354.0" layoutY="91.0" prefHeight="25.0" prefWidth="514.0" promptText="Description" />
 </Pane>
