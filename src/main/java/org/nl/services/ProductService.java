@@ -8,6 +8,8 @@ import org.dizitart.no2.objects.ObjectRepository;
 import org.dizitart.no2.objects.filters.ObjectFilters;
 import org.nl.controllers.RegistrationController;
 import org.nl.exceptions.ProductIDAlreadyExistsException;
+import org.nl.exceptions.SimpleTextException;
+import org.nl.exceptions.UsernameAlreadyExistsException;
 import org.nl.model.Product;
 import org.nl.model.User;
 
@@ -94,4 +96,14 @@ public class ProductService {
         }
         return true;
     }
+
+    public static void changeProductData(int idProduct, String name, float price, String dimensions, String description, int stock, String img){
+
+        Product updatedProduct = new Product(idProduct, name, price, dimensions, description, stock, img);
+        productRepository.update(updatedProduct);
+
+        //return new User(username, encodePassword(username, password), aux);
+
+    }
+
 }
