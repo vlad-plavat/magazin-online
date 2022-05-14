@@ -17,6 +17,8 @@ public class ItemStoreController {
     private TextField stockField;
     @FXML
     private TextField descriptionField;
+    @FXML
+    private TextField nameField;
 
     private int productId;
 
@@ -37,6 +39,7 @@ public class ItemStoreController {
         dimensionField.setText(""+p.getDimensions());
         stockField.setText(""+p.getStock());
         descriptionField.setText(""+p.getDescription());
+        nameField.setText(""+p.getName());
     }
 
     @FXML
@@ -46,9 +49,10 @@ public class ItemStoreController {
         String description = descriptionField.getText();
         String dimensions = dimensionField.getText();
         String stock = stockField.getText();
+        String name = nameField.getText();
 
         if(!(price.isBlank() || description.isBlank() || dimensions.isBlank() || stock.isBlank())){
-            ProductService.changeProductData(productId, p.getName(), Float.parseFloat(price),  dimensions, description, Integer.parseInt(stock), p.getImageAddr());
+            ProductService.changeProductData(productId, name, Float.parseFloat(price),  dimensions, description, Integer.parseInt(stock), p.getImageAddr());
         }
         ((Node)evt.getSource()).setStyle("-fx-background-color: white; -fx-border-width: 1px; -fx-border-color: grey;");
     }

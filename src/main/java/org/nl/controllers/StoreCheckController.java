@@ -81,7 +81,7 @@ public class StoreCheckController {
 
             pane.getChildren().add(newPane);
 
-            ((Text)newPane.getChildren().get(1)).setText(p.getName());
+            ((TextField)newPane.getChildren().get(5)).setText(p.getName());
             ((ImageView)newPane.getChildren().get(0)).setImage(new Image(p.getImageAddr()));
 
             //((Text)newPane.getChildren().get(7)).setText(""+p.getIdProdct());
