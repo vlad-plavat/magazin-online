@@ -14,8 +14,8 @@
             <Font name="System Bold" size="30.0" />
         </font>
     </Text>
-   <TextField fx:id="priceField" layoutX="294.0" layoutY="54.0" prefHeight="25.0" prefWidth="200.0" promptText="Price" />
-   <TextField fx:id="dimensionField" layoutX="691.0" layoutY="54.0" prefHeight="25.0" prefWidth="283.0" promptText="Dimension" />
-   <TextField fx:id="stockField" layoutX="1049.0" layoutY="21.0" promptText="Stock" />
-   <TextField fx:id="descriptionField" layoutX="354.0" layoutY="91.0" prefHeight="25.0" prefWidth="514.0" promptText="Description" />
+   <TextField fx:id="priceField" layoutX="294.0" layoutY="54.0" onAction="#saveChanges" onMouseClicked="#turnColor" prefHeight="25.0" prefWidth="200.0" promptText="Price" style="-fx-background-color: white; -fx-border-width: 1px; -fx-border-color: gray;" />
+   <TextField fx:id="dimensionField" layoutX="691.0" layoutY="54.0" onAction="#saveChanges" onMouseClicked="#turnColor" prefHeight="25.0" prefWidth="283.0" promptText="Dimension" style="-fx-background-color: white; -fx-border-width: 1px; -fx-border-color: gray;" />
+   <TextField fx:id="stockField" layoutX="1049.0" layoutY="21.0" onAction="#saveChanges" onMouseClicked="#turnColor" promptText="Stock" style="-fx-background-color: white; -fx-border-width: 1px; -fx-border-color: gray;" />
+   <TextField fx:id="descriptionField" layoutX="354.0" layoutY="91.0" onAction="#saveChanges" onMouseClicked="#turnColor" prefHeight="25.0" prefWidth="514.0" promptText="Description" style="-fx-background-color: white; -fx-border-width: 1px; -fx-border-color: gray;" />
 </Pane>

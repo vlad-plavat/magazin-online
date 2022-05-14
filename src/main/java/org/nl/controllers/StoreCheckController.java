@@ -22,6 +22,7 @@ import org.nl.services.ProductService;
 import org.nl.services.StageService;
 import org.nl.services.UserService;
 
+import java.awt.*;
 import java.net.URL;
 
 import static org.nl.controllers.RegistrationController.loggeduser;
@@ -34,10 +35,6 @@ public class StoreCheckController {
     public CheckBox onlyStock;
     @FXML
     public TextField searchField;
-    @FXML
-    public TextField maxPrice;
-    @FXML
-    public TextField minPrice;
 
     //private ArrayList<Pane> produseAfisate = new ArrayList<>();
 
@@ -122,9 +119,5 @@ public class StoreCheckController {
         }
         pane.setPrefHeight(i*125);
     }
-    @FXML
-    public void saveChanges(ActionEvent evt){
-        System.out.println("Save changes");
 
-    }
 }

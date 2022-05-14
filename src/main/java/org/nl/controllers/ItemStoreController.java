@@ -2,26 +2,11 @@ package org.nl.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import org.nl.Main;
+import javafx.scene.input.MouseEvent;
 import org.nl.model.Product;
 import org.nl.services.ProductService;
-
-import java.io.IOException;
-import java.net.URL;
-
-import static org.nl.controllers.RegistrationController.loggeduser;
 
 public class ItemStoreController {
     @FXML
@@ -53,6 +38,26 @@ public class ItemStoreController {
         stockField.setText(""+p.getStock());
         descriptionField.setText(""+p.getDescription());
     }
+
+    @FXML
+    public void saveChanges(ActionEvent evt){
+        Product p = ProductService.getProduct(productId);
+        String price = priceField.getText();
+        String description = descriptionField.getText();
+        String dimensions = dimensionField.getText();
+        String stock = stockField.getText();
+
+        if(!(price.isBlank() || description.isBlank() || dimensions.isBlank() || stock.isBlank())){
+            ProductService.changeProductData(productId, p.getName(), Float.parseFloat(price),  dimensions, description, Integer.parseInt(stock), p.getImageAddr());
+        }
+        ((Node)evt.getSource()).setStyle("-fx-background-color: white; -fx-border-width: 1px; -fx-border-color: grey;");
+    }
+
+    @FXML
+    public void turnColor(MouseEvent evt){
+        ((Node)evt.getSource()).setStyle("-fx-background-color: wheat; -fx-border-width: 1px; -fx-border-color: grey;");
+    }
+
 
 
 }
