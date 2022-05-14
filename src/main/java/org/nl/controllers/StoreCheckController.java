@@ -78,6 +78,17 @@ public class StoreCheckController {
             FXMLLoader newLoader = new FXMLLoader(toFxml);
             Pane newPane = newLoader.load();
             ((ItemStoreController)newLoader.getController()).setProductId(p.getIdProdct());
+            ((ItemStoreController)newLoader.getController()).getWithdrawButton().setOnAction(
+                    (evt)-> {
+                        try {
+                            StageService.createYesNoPopup(evt,"Delete product","Are you sure you want to delete the product?",
+                                    null,ProductService.class.getMethod("removeProduct", int.class, StoreCheckController.class),
+                                    p.getIdProdct(),this);
+                        } catch (NoSuchMethodException e) {
+                            e.printStackTrace();
+                        }
+                    }
+            );
 
 
             pane.getChildren().add(newPane);

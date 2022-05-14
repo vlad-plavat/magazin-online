@@ -7,6 +7,7 @@ import org.dizitart.no2.objects.Cursor;
 import org.dizitart.no2.objects.ObjectRepository;
 import org.dizitart.no2.objects.filters.ObjectFilters;
 import org.nl.controllers.RegistrationController;
+import org.nl.controllers.StoreCheckController;
 import org.nl.exceptions.ProductIDAlreadyExistsException;
 import org.nl.exceptions.SimpleTextException;
 import org.nl.exceptions.UsernameAlreadyExistsException;
@@ -20,7 +21,11 @@ public class ProductService {
     public static void initDatabase() {
 
         productRepository = UserService.getDatabase().getRepository(Product.class);
+        /*try {
+            addProduct(7,"ceva",4.99f,"mare","fain",1,"file:/E:/sofa.jpg");
+        } catch (ProductIDAlreadyExistsException ignored) {
 
+        }*/
     }
 
     public static Product addProduct(int idProdct, String name, float price, String dimensions, String description, int stock, String imageAddr)
@@ -66,9 +71,14 @@ public class ProductService {
 
     public static void orderProduct(int productID){
         Product p = getProduct(productID);
-        productRepository.remove(p);
         p.decreaseStock();
-        productRepository.insert(p);
+        productRepository.update(p);
+    }
+
+    public static void removeProduct(int productID, StoreCheckController scc){
+        Product p = getProduct(productID);
+        productRepository.remove(p);
+        scc.reloadProducts(null);
     }
 
     public static boolean checkProductPrice(Product p, TextField minPrice, TextField maxPrice) {

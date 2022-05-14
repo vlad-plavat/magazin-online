@@ -21,7 +21,7 @@ public class Main extends Application {
         FeedbackService.initDatabase();
         ProductService.initDatabase();
         OrderService.initDatabase();
-        URL toFxml = getClass().getClassLoader().getResource("StoreCheck.fxml");
+        URL toFxml = getClass().getClassLoader().getResource("register.fxml");
         if(toFxml != null) {
             Parent root = FXMLLoader.load(toFxml);
             primaryStage.setTitle("NatureLeaf");

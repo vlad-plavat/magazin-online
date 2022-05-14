@@ -3,6 +3,7 @@ package org.nl.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
@@ -22,6 +23,13 @@ public class ItemStoreController {
     private TextField descriptionField;
     @FXML
     private TextField nameField;
+
+    @FXML
+    private Button withdrawButton;
+
+    public Button getWithdrawButton() {
+        return withdrawButton;
+    }
 
     private int productId;
 
