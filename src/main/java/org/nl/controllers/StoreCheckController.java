@@ -132,4 +132,8 @@ public class StoreCheckController {
         pane.setPrefHeight(i*125);
     }
 
+    @FXML
+    public void openAddDialog(ActionEvent evt){
+
+    }
 }
