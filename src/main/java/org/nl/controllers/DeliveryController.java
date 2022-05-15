@@ -20,6 +20,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 
 import static org.nl.controllers.RegistrationController.loggeduser;
+import static org.nl.services.FileSystemService.imgFromPrd;
 
 public class DeliveryController {
     @FXML
@@ -65,17 +66,14 @@ public class DeliveryController {
             pane.getChildren().add(newPane);
             Product p = ProductService.getProduct(o.getIdProduct());
 
-            ((ImageView)newPane.getChildren().get(0)).setImage(new Image(p.getImageAddr()));
             ((Text)newPane.getChildren().get(1)).setText(p.getName());
             ((Text)newPane.getChildren().get(2)).setText(String.format("Price: $%.2f",p.getPrice()));
             ((Text)newPane.getChildren().get(3)).setText("Dimensions: " + p.getDimensions());
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             ((Text)newPane.getChildren().get(5)).setText("Address: " + o.getAddress());
             ((Text)newPane.getChildren().get(6)).setText("Name: " + o.getUsername());
 
-
-
             newPane.setLayoutY(i*125);
+            ((ImageView)newPane.getChildren().get(0)).setImage(new Image(imgFromPrd(p)));
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
