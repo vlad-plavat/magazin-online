@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-image: url('background-scroll.png');" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.nl.controllers.AddProductController">
+    <HBox alignment="CENTER" layoutX="36.0" layoutY="81.0" prefHeight="232.0" prefWidth="332.0">
+        <ImageView fx:id="productImage" fitHeight="229.0" fitWidth="220.0" pickOnBounds="true" preserveRatio="true" />
+    </HBox>
+   <TextField fx:id="nameField" alignment="CENTER" focusTraversable="false" layoutX="36.0" layoutY="14.0" prefHeight="38.0" prefWidth="628.0" promptText="Product name">
+      <font>
+         <Font name="System Bold" size="17.0" />
+      </font>
+   </TextField>
+   <TextField fx:id="priceField" alignment="CENTER" layoutX="451.0" layoutY="102.0" prefHeight="38.0" prefWidth="213.0" promptText="Price">
+      <font>
+         <Font name="System Bold" size="17.0" />
+      </font>
+   </TextField>
+   <TextField fx:id="stockField" alignment="CENTER" layoutX="451.0" layoutY="164.0" prefHeight="38.0" prefWidth="213.0" promptText="Stock">
+      <font>
+         <Font name="System Bold" size="17.0" />
+      </font>
+   </TextField>
+   <Button layoutX="500.0" layoutY="268.0" mnemonicParsing="false" onAction="#openFileChooser" text="Choose Image">
+      <font>
+         <Font size="15.0" />
+      </font>
+   </Button>
+   <TextField fx:id="dimensionsField" alignment="CENTER" layoutX="36.0" layoutY="345.0" prefHeight="15.0" prefWidth="628.0" promptText="Dimensions">
+      <font>
+         <Font size="15.0" />
+      </font>
+   </TextField>
+   <TextArea fx:id="descriptionBox" layoutX="36.0" layoutY="393.0" prefHeight="150.0" prefWidth="628.0" promptText="Description" />
+   <Button layoutX="296.0" layoutY="554.0" mnemonicParsing="false" onAction="#saveProduct" text="Save product">
+      <font>
+         <Font size="15.0" />
+      </font></Button>
+</AnchorPane>
