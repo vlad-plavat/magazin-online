@@ -24,7 +24,7 @@ public class ManagerMenuController {
     }
     @FXML
     public void goToStatistics(ActionEvent evt){
-        System.out.println("Statistics");
+        StageService.loadPage(evt,"statistica.fxml");
     }
 
     @FXML
