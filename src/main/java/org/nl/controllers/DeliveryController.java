@@ -58,6 +58,9 @@ public class DeliveryController {
                 throw new RuntimeException("Could not load fxml file deliveryList.fxml");
             FXMLLoader loader = new FXMLLoader(toFxml);
             Pane newPane = loader.load();
+            ((DeliveryItem)loader.getController()).setOrderDate(o.getDate());
+            ((DeliveryItem)loader.getController()).setUserOrd(o.getUsername());
+            ((DeliveryItem)loader.getController()).setDc(this);
 
             pane.getChildren().add(newPane);
             Product p = ProductService.getProduct(o.getIdProduct());

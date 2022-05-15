@@ -62,6 +62,8 @@ public class Order {
 
     public void process(){status = "processed";}
 
+    public void deliver(){status = "delivered";}
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

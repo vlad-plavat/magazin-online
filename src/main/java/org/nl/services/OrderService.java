@@ -53,6 +53,15 @@ public class OrderService {
         orderRepository.insert(o);
     }
 
+    public static void deliverOrder(Date orderDate, String userOrd) {
+        Order o = getOrder(orderDate,userOrd);
+
+        orderRepository.remove(ObjectFilters.and(
+                ObjectFilters.eq("date", orderDate), ObjectFilters.eq("username", userOrd)));
+        o.deliver();
+        orderRepository.insert(o);
+    }
+
     public static Cursor<Order> getAllOrdersBetween(Date d1, Date d2) {
         return orderRepository.find(ObjectFilters.and(
                 ObjectFilters.gte("date", d1), ObjectFilters.lt("date", d2)));

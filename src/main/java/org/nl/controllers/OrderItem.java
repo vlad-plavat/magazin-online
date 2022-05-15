@@ -38,6 +38,6 @@ public class OrderItem {
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
-        wk.reloadOrders();
+        //wk.reloadOrders();
     }
 }
