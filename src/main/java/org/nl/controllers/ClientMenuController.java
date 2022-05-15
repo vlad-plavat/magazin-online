@@ -27,7 +27,7 @@ public class ClientMenuController {
     }
     @FXML
     public void goToOrders(ActionEvent evt){
-        System.out.println("Orders");
+        StageService.loadPage(evt,"orderHistory.fxml");
 
     }
     @FXML
