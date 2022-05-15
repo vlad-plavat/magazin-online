@@ -7,11 +7,10 @@ import org.nl.services.StageService;
 
 import java.util.Date;
 
-public class OrderItem {
-
-    public Date orderDate;
+public class DeliveryItem {
+    private Date orderDate;
     private String userOrd;
-    private WorkerController wk;
+    private DeliveryController dc;
 
     public void setOrderDate(Date orderDate) {
         this.orderDate = orderDate;
@@ -21,23 +20,22 @@ public class OrderItem {
         this.userOrd = userOrd;
     }
 
-    public void setWk(WorkerController wk) {
-        this.wk = wk;
+    public void setDc(DeliveryController dc) {
+        this.dc = dc;
     }
 
-    public void confirmOrder(){
-        OrderService.processOrder(orderDate,userOrd);
-        wk.reloadOrders();
+    public void confirmDelivery(){
+        OrderService.deliverOrder(orderDate,userOrd);
+        dc.reloadOrders();
     }
-
     @FXML
-    public void processOrder(ActionEvent evt) {
+    public void deliverOrder(ActionEvent evt) {
         try {
-            StageService.createYesNoPopup(evt,"Process order?","Process selected order?",
-                    this,getClass().getMethod("confirmOrder"));
+            StageService.createYesNoPopup(evt,"Deliver order?","Deliver selected order?",
+                    this,getClass().getMethod("confirmDelivery"));
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
-        //wk.reloadOrders();
+
     }
 }

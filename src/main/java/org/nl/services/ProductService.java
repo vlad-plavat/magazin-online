@@ -1,17 +1,27 @@
 package org.nl.services;
 
 import javafx.scene.control.TextField;
+import org.apache.commons.io.FilenameUtils;
 import org.dizitart.no2.FindOptions;
 import org.dizitart.no2.SortOrder;
 import org.dizitart.no2.objects.Cursor;
 import org.dizitart.no2.objects.ObjectRepository;
 import org.dizitart.no2.objects.filters.ObjectFilters;
+import org.nl.Main;
 import org.nl.controllers.RegistrationController;
+import org.nl.controllers.StoreCheckController;
 import org.nl.exceptions.ProductIDAlreadyExistsException;
 import org.nl.exceptions.SimpleTextException;
 import org.nl.exceptions.UsernameAlreadyExistsException;
 import org.nl.model.Product;
 import org.nl.model.User;
+
+import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+import static org.nl.services.FileSystemService.getFullPath;
 
 public class ProductService {
 
@@ -20,20 +30,29 @@ public class ProductService {
     public static void initDatabase() {
 
         productRepository = UserService.getDatabase().getRepository(Product.class);
+        /*try {
+            addProduct(7,"ceva",4.99f,"mare","fain",1,"file:/E:/sofa.jpg");
+        } catch (ProductIDAlreadyExistsException ignored) {
 
+        }*/
     }
 
-    public static Product addProduct(int idProdct, String name, float price, String dimensions, String description, int stock, String imageAddr)
+    public static void addProduct(int idProdct, String name, float price, String dimensions, String description, int stock, String imageAddr)
             throws ProductIDAlreadyExistsException {
         checkProductIDDoesNotAlreadyExist(idProdct);
         Product p = new Product(idProdct,name,price,dimensions,description,stock,imageAddr);
         productRepository.insert(p);
-        return p;
     }
 
     public static Product getProduct(int idProduct){
-        return productRepository.find(
-                ObjectFilters.eq("idProdct", idProduct), FindOptions.limit(0, 1)).toList().get(0);
+        try {
+            return productRepository.find(
+                    ObjectFilters.eq("idProdct", idProduct), FindOptions.limit(0, 1)).toList().get(0);
+        }catch (IndexOutOfBoundsException e){
+            return new Product(0,"[the product has been withdrawn from sale]",0f,"",
+                    "The product you are searching for is no longer available.",0,"icon.png");
+        }
+
     }
 
     private static void checkProductIDDoesNotAlreadyExist(int ID) throws ProductIDAlreadyExistsException {
@@ -41,6 +60,14 @@ public class ProductService {
             if (ID == prod.getIdProdct())
                 throw new ProductIDAlreadyExistsException(ID);
         }
+    }
+
+    public static boolean doesIdExist(int ID) {
+        for (Product prod : productRepository.find()) {
+            if (ID == prod.getIdProdct())
+                return true;
+        }
+        return false;
     }
 
     public static Cursor<Product> getAllProducts(){
@@ -66,9 +93,20 @@ public class ProductService {
 
     public static void orderProduct(int productID){
         Product p = getProduct(productID);
-        productRepository.remove(p);
         p.decreaseStock();
-        productRepository.insert(p);
+        productRepository.update(p);
+    }
+
+    public static void removeProduct(int productID, StoreCheckController scc){
+        Product p = getProduct(productID);
+        String finalPath = getFullPath("productImages") +"/"+ p.getImageAddr();
+        try {
+            productRepository.remove(p);
+            scc.reloadProducts(null);
+            Files.deleteIfExists(Path.of(finalPath));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static boolean checkProductPrice(Product p, TextField minPrice, TextField maxPrice) {

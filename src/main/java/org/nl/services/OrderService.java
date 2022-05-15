@@ -25,6 +25,10 @@ public class OrderService {
         return orderRepository.find(ObjectFilters.eq("status", "placed"));
     }
 
+    public static Cursor<Order> getAllProcessedOrders() {
+        return orderRepository.find(ObjectFilters.eq("status", "processed"));
+    }
+
     public static  Cursor<Order> getAllOrders(){
         return orderRepository.find();
     }
@@ -50,6 +54,15 @@ public class OrderService {
         orderRepository.remove(ObjectFilters.and(
                 ObjectFilters.eq("date", orderDate), ObjectFilters.eq("username", userOrd)));
         o.process();
+        orderRepository.insert(o);
+    }
+
+    public static void deliverOrder(Date orderDate, String userOrd) {
+        Order o = getOrder(orderDate,userOrd);
+
+        orderRepository.remove(ObjectFilters.and(
+                ObjectFilters.eq("date", orderDate), ObjectFilters.eq("username", userOrd)));
+        o.deliver();
         orderRepository.insert(o);
     }
 

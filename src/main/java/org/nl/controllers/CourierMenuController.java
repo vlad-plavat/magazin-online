@@ -8,31 +8,22 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.nl.Main;
+import org.nl.services.StageService;
 
 import java.io.IOException;
 
 public class CourierMenuController {
     @FXML
-    public void goToDelivery(){
-        System.out.println("Delivery");
+    public void goToDelivery(ActionEvent evt){
+        StageService.loadPage(evt,"delivery.fxml");
 
     }
+
     @FXML
     public void goToSettings(ActionEvent evt){
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(Main.class.getClassLoader().getResource("accountSettings.fxml"));
-            Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-
+        StageService.loadPage(evt,"accountSettings.fxml");
     }
+
     @FXML
     public void logOut(ActionEvent evt){
         Parent root = null;

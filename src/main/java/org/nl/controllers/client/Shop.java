@@ -20,6 +20,8 @@ import org.nl.services.StageService;
 
 import java.net.URL;
 
+import static org.nl.services.FileSystemService.imgFromPrd;
+
 public class Shop {
     @FXML
     public ChoiceBox<String> sortBy;
@@ -73,7 +75,6 @@ public class Shop {
             pane.getChildren().add(newPane);
 
             ((Text)newPane.getChildren().get(1)).setText(p.getName());
-            ((ImageView)newPane.getChildren().get(0)).setImage(new Image(p.getImageAddr()));
             ((Text)newPane.getChildren().get(2)).setText(String.format("Price: $%.2f",p.getPrice()));
             ((Text)newPane.getChildren().get(3)).setText("Dimensions: " + p.getDimensions());
             if(p.getStock()>0){
@@ -86,6 +87,7 @@ public class Shop {
             ((Text)newPane.getChildren().get(7)).setText(""+p.getIdProdct());
 
             newPane.setLayoutY(i*125);
+            ((ImageView)newPane.getChildren().get(0)).setImage(new Image(imgFromPrd(p)));
         }catch(Exception e){
             System.out.println(e.getMessage());
         }

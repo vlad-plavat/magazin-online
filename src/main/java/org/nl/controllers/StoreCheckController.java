@@ -3,6 +3,8 @@ package org.nl.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
@@ -12,6 +14,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import org.dizitart.no2.objects.Cursor;
 import org.nl.Main;
 import org.nl.exceptions.SimpleTextException;
@@ -23,9 +27,11 @@ import org.nl.services.StageService;
 import org.nl.services.UserService;
 
 import java.awt.*;
+import java.io.IOException;
 import java.net.URL;
 
 import static org.nl.controllers.RegistrationController.loggeduser;
+import static org.nl.services.FileSystemService.imgFromPrd;
 import static org.nl.services.UserService.encodePassword;
 
 public class StoreCheckController {
@@ -35,6 +41,8 @@ public class StoreCheckController {
     public CheckBox onlyStock;
     @FXML
     public TextField searchField;
+    @FXML
+    public AnchorPane parentPane;
 
     //private ArrayList<Pane> produseAfisate = new ArrayList<>();
 
@@ -69,7 +77,6 @@ public class StoreCheckController {
     }
 
     private void addProductOnScreen(Product p, int i){
-        System.out.println(i);
         try {
             URL toFxml = Main.class.getClassLoader().getResource("itemStoreCheck.fxml");
             if(toFxml == null)
@@ -77,16 +84,29 @@ public class StoreCheckController {
             FXMLLoader newLoader = new FXMLLoader(toFxml);
             Pane newPane = newLoader.load();
             ((ItemStoreController)newLoader.getController()).setProductId(p.getIdProdct());
+            ((ItemStoreController)newLoader.getController()).getWithdrawButton().setOnAction(
+                    (evt)-> {
+                        try {
+                            StageService.createYesNoPopup(evt,"Delete product","Are you sure you want to delete the product?",
+                                    null,ProductService.class.getMethod("removeProduct", int.class, StoreCheckController.class),
+                                    p.getIdProdct(),this);
+                        } catch (NoSuchMethodException e) {
+                            e.printStackTrace();
+                        }
+                    }
+            );
 
 
             pane.getChildren().add(newPane);
 
             ((TextField)newPane.getChildren().get(5)).setText(p.getName());
-            ((ImageView)newPane.getChildren().get(0)).setImage(new Image(p.getImageAddr()));
+            newPane.setLayoutY(i*125);
+            System.out.println(imgFromPrd(p));
+            ((ImageView)newPane.getChildren().get(0)).setImage(new Image(imgFromPrd(p)));
 
             //((Text)newPane.getChildren().get(7)).setText(""+p.getIdProdct());
 
-            newPane.setLayoutY(i*125);
+
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
@@ -120,4 +140,28 @@ public class StoreCheckController {
         pane.setPrefHeight(i*125);
     }
 
+    @FXML
+    public void openAddDialog(ActionEvent evt){
+        try {
+            URL toFxml = Main.class.getClassLoader().getResource("addProduct.fxml");
+            if (toFxml == null)
+                throw new RuntimeException("Could not load addProduct.fxml");
+            FXMLLoader newLoader = new FXMLLoader(toFxml);
+            Pane root = newLoader.load();
+            ((AddProductController)newLoader.getController()).setScc(this);
+
+            final Stage infoPage = new Stage();
+            infoPage.initModality(Modality.WINDOW_MODAL);
+            infoPage.setResizable(false);
+            infoPage.initOwner(((Node) evt.getSource()).getScene().getWindow());
+            infoPage.getIcons().add(new Image("icon.png"));
+            infoPage.setTitle("Add a new product");
+            Scene scene = new Scene(root);
+            infoPage.setScene(scene);
+            //setProduct(root,infoPage);
+            infoPage.show();
+        }catch (IOException e){
+            System.out.println("IO error");
+        }
+    }
 }

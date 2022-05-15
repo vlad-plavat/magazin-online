@@ -3,12 +3,10 @@ package org.nl.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import org.dizitart.no2.objects.Cursor;
 import org.nl.Main;
@@ -21,18 +19,14 @@ import org.nl.services.StageService;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 
-import static org.nl.services.FileSystemService.imgFromPrd;
+import static org.nl.controllers.RegistrationController.loggeduser;
 
-public class WorkerController {
-
+public class DeliveryController {
     @FXML
     private AnchorPane pane;
     @FXML
-    public TextField searchField;
-
-    @FXML
     public void goBack(ActionEvent evt){
-        StageService.loadPage(evt,"Menus/Worker.fxml");
+        StageService.loadPage(evt,"Menus/"+loggeduser.getRole()+".fxml");
     }
 
     @FXML
@@ -46,15 +40,12 @@ public class WorkerController {
             pane.getChildren().remove(0);
         }
 
-        Cursor<Order> all = OrderService.getAllPlacedOrders();
+        Cursor<Order> all = OrderService.getAllProcessedOrders();
 
         int i = 0;
         for(Order o : all){
-            Product p = ProductService.getProduct(o.getIdProduct());
-            if(OrderService.checkOrderName(p.getName(),searchField.getText())) {
-                addOrderOnScreen(o, i);
-                i++;
-            }
+            addOrderOnScreen(o, i);
+            i++;
         }
         pane.setPrefHeight(i*125);
     }
@@ -62,31 +53,31 @@ public class WorkerController {
 
     private void addOrderOnScreen(Order o, int i){
         try {
-            URL toFxml = Main.class.getClassLoader().getResource("order.fxml");
+            URL toFxml = Main.class.getClassLoader().getResource("deliveryList.fxml");
             if(toFxml == null)
-                throw new RuntimeException("Could not load fxml file item.fxml");
+                throw new RuntimeException("Could not load fxml file deliveryList.fxml");
             FXMLLoader loader = new FXMLLoader(toFxml);
             Pane newPane = loader.load();
-            ((OrderItem)loader.getController()).setOrderDate(o.getDate());
-            ((OrderItem)loader.getController()).setUserOrd(o.getUsername());
-            ((OrderItem)loader.getController()).setWk(this);
+            ((DeliveryItem)loader.getController()).setOrderDate(o.getDate());
+            ((DeliveryItem)loader.getController()).setUserOrd(o.getUsername());
+            ((DeliveryItem)loader.getController()).setDc(this);
 
             pane.getChildren().add(newPane);
             Product p = ProductService.getProduct(o.getIdProduct());
 
+            ((ImageView)newPane.getChildren().get(0)).setImage(new Image(p.getImageAddr()));
             ((Text)newPane.getChildren().get(1)).setText(p.getName());
             ((Text)newPane.getChildren().get(2)).setText(String.format("Price: $%.2f",p.getPrice()));
             ((Text)newPane.getChildren().get(3)).setText("Dimensions: " + p.getDimensions());
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-            ((Text)newPane.getChildren().get(5)).setText("Order date: " + formatter.format(o.getDate()));
+            ((Text)newPane.getChildren().get(5)).setText("Address: " + o.getAddress());
+            ((Text)newPane.getChildren().get(6)).setText("Name: " + o.getUsername());
 
 
 
             newPane.setLayoutY(i*125);
-            ((ImageView)newPane.getChildren().get(0)).setImage(new Image(imgFromPrd(p)));
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
     }
-
 }
