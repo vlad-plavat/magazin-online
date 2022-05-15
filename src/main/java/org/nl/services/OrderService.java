@@ -1,11 +1,15 @@
 package org.nl.services;
 
+import com.fasterxml.jackson.databind.ext.CoreXMLDeserializers;
 import org.dizitart.no2.FindOptions;
 import org.dizitart.no2.objects.Cursor;
 import org.dizitart.no2.objects.ObjectRepository;
 import org.dizitart.no2.objects.filters.ObjectFilters;
+import org.nl.controllers.OrderHistoryController;
 import org.nl.model.Order;
+import org.nl.model.User;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class OrderService {
@@ -56,5 +60,18 @@ public class OrderService {
     public static Cursor<Order> getAllOrdersBetween(Date d1, Date d2) {
         return orderRepository.find(ObjectFilters.and(
                 ObjectFilters.gte("date", d1), ObjectFilters.lt("date", d2)));
+    }
+
+    public static void removeOrphanedForUser(User loggeduser, OrderHistoryController ohc) {
+        ArrayList<Order> ol = new ArrayList<>();
+        for(Order o : orderRepository.find()){
+            if(o.getUsername().equals(loggeduser.getUsername()) && !ProductService.doesIdExist(o.getIdProduct()))
+                ol.add(o);
+        }
+        for(Order o : ol)
+            orderRepository.remove(ObjectFilters.and(
+                ObjectFilters.eq("username", o.getUsername()),
+                ObjectFilters.eq("date", o.getDate())));
+        ohc.reloadOrders();
     }
 }

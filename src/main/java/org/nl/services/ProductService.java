@@ -144,4 +144,9 @@ public class ProductService {
 
     }
 
+    public static void changeExtension(int id,String extension) {
+        Product p = getProduct(id);
+        p.setImageAddr(id+"."+extension);
+        productRepository.update(p);
+    }
 }

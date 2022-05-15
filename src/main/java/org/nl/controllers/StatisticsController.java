@@ -103,7 +103,7 @@ public class StatisticsController {
             if(price_units.getValue().equals(sPrice))
                 vecm[month]+= ProductService.getProduct(o.getIdProduct()).getPrice();
             else
-                vecm[month]++;
+                vecm[month]+=ProductService.getProduct(o.getIdProduct()).getIdProdct()==0?0:1;
         }
         for(int i=1;i<=12;i++){
             series.getData().add(new XYChart.Data<>(months[i], vecm[i]));
@@ -122,7 +122,7 @@ public class StatisticsController {
             if(price_units.getValue().equals(sPrice))
                 vecd[day]+= ProductService.getProduct(o.getIdProduct()).getPrice();
             else
-                vecd[day]++;
+                vecd[day]+=ProductService.getProduct(o.getIdProduct()).getIdProdct()==0?0:1;
         }
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
         int year = Integer.parseInt(formatter.format(date0));
@@ -149,7 +149,7 @@ public class StatisticsController {
             if(price_units.getValue().equals(sPrice))
                 vecd[day]+= ProductService.getProduct(o.getIdProduct()).getPrice();
             else
-                vecd[day]++;
+                vecd[day]+=ProductService.getProduct(o.getIdProduct()).getIdProdct()==0?0:1;
         }
         SimpleDateFormat formatter = new SimpleDateFormat(" (dd/MM/yyyy)");
         for(int i = 0; i< 7; i++){
@@ -170,7 +170,7 @@ public class StatisticsController {
             if(price_units.getValue().equals(sPrice))
                 vecd[hour/3]+= ProductService.getProduct(o.getIdProduct()).getPrice();
             else
-                vecd[hour/3]++;
+                vecd[hour/3]+=ProductService.getProduct(o.getIdProduct()).getIdProdct()==0?0:1;
         }
 
         for(int i = 0; i < 8; i++){
