@@ -49,7 +49,7 @@ public class OrderHistoryController {
         int i = 0;
         for(Order o : all){
             Product p = ProductService.getProduct(o.getIdProduct());
-            if(OrderService.checkOrderName(p.getName(),searchField.getText())) {
+            if(OrderService.checkOrderName(p.getName(),searchField.getText()) && o.getUsername().equals(loggeduser.getUsername())) {
                 addOrderOnScreen(o, i);
                 i++;
             }
