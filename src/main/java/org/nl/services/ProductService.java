@@ -28,12 +28,11 @@ public class ProductService {
         }*/
     }
 
-    public static Product addProduct(int idProdct, String name, float price, String dimensions, String description, int stock, String imageAddr)
+    public static void addProduct(int idProdct, String name, float price, String dimensions, String description, int stock, String imageAddr)
             throws ProductIDAlreadyExistsException {
         checkProductIDDoesNotAlreadyExist(idProdct);
         Product p = new Product(idProdct,name,price,dimensions,description,stock,imageAddr);
         productRepository.insert(p);
-        return p;
     }
 
     public static Product getProduct(int idProduct){
@@ -46,6 +45,14 @@ public class ProductService {
             if (ID == prod.getIdProdct())
                 throw new ProductIDAlreadyExistsException(ID);
         }
+    }
+
+    public static boolean doesIdExist(int ID) {
+        for (Product prod : productRepository.find()) {
+            if (ID == prod.getIdProdct())
+                return true;
+        }
+        return false;
     }
 
     public static Cursor<Product> getAllProducts(){
