@@ -16,5 +16,6 @@
       </font>
    </Text>
    <Button layoutX="75.0" layoutY="50.0" mnemonicParsing="false" onAction="#goBack" text="Back to menu" />
-   <TextField fx:id="searchField" layoutX="219.0" layoutY="95.0" onAction="#reloadOrders" prefHeight="26.0" prefWidth="962.0" promptText="🔍 Search " AnchorPane.leftAnchor="220.0" AnchorPane.rightAnchor="220.0" />
+   <TextField fx:id="searchField" layoutX="226.0" layoutY="95.0" onAction="#reloadOrders" prefHeight="26.0" prefWidth="828.0" promptText="🔍 Search " AnchorPane.leftAnchor="226.0" AnchorPane.rightAnchor="226.0" />
+   <Button layoutX="1052.0" layoutY="50.0" mnemonicParsing="false" onAction="#removeOrphaned" text="Delete orders with removed products" />
 </AnchorPane>

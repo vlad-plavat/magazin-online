@@ -23,6 +23,7 @@ import java.net.URL;
 import java.util.Date;
 
 import static org.nl.controllers.RegistrationController.loggeduser;
+import static org.nl.services.FileSystemService.imgFromPrd;
 
 public class ClientOrderItem {
 
@@ -58,7 +59,7 @@ public class ClientOrderItem {
         //numele
         Order o = OrderService.getOrder(orderDate,loggeduser.getUsername());
         Product p = ProductService.getProduct(o.getIdProduct());
-        ((ImageView)((HBox)pane.getChildren().get(0)).getChildren().get(0)).setImage(new Image(p.getImageAddr()));
+        ((ImageView)((HBox)pane.getChildren().get(0)).getChildren().get(0)).setImage(new Image(imgFromPrd(p)));
         ((Text)pane.getChildren().get(1)).setText(p.getName());
         infoPage.setTitle(p.getName());
         ((Text)pane.getChildren().get(2)).setText(String.format("Price: $%.2f",p.getPrice()));

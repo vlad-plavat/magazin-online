@@ -77,6 +77,7 @@ public class ItemStoreController {
                 Files.deleteIfExists(Path.of(finalOldPath));//sterg poza veche
                 Files.copy(Path.of(newImage.getPath()), Path.of(finalNewPath));//adaug poza noua
                 productImage.setImage(new Image("file:/" + newImage.getPath()));
+                ProductService.changeExtension(productId,FilenameUtils.getExtension(newImage.getName()));
             } catch (IOException e) {
                 e.printStackTrace();
             }

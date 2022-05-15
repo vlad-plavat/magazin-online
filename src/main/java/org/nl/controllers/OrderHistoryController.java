@@ -16,16 +16,13 @@ import org.nl.Main;
 import org.nl.model.Feedback;
 import org.nl.model.Order;
 import org.nl.model.Product;
-import org.nl.services.FeedbackService;
-import org.nl.services.OrderService;
-import org.nl.services.ProductService;
-import org.nl.services.StageService;
+import org.nl.services.*;
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
 
 import static org.nl.controllers.RegistrationController.loggeduser;
-
+import static org.nl.services.FileSystemService.imgFromPrd;
 
 
 public class OrderHistoryController {
@@ -70,16 +67,15 @@ public class OrderHistoryController {
             pane.getChildren().add(newPane);
             Product p = ProductService.getProduct(o.getIdProduct());
 
-            ((ImageView)newPane.getChildren().get(0)).setImage(new Image(p.getImageAddr()));
             ((Text)newPane.getChildren().get(1)).setText(p.getName());
             ((Text)newPane.getChildren().get(2)).setText("Status: " + o.getStatus());
             ((Text)newPane.getChildren().get(3)).setText(String.format("Price: $%.2f",p.getPrice()));
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             ((Text)newPane.getChildren().get(5)).setText("Order date: " + formatter.format(o.getDate()));
 
-
-
             newPane.setLayoutY(i*125);
+
+            ((ImageView)newPane.getChildren().get(0)).setImage(new Image(imgFromPrd(p)));
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
@@ -88,6 +84,10 @@ public class OrderHistoryController {
     public void goBack(ActionEvent evt){
         StageService.loadPage(evt,"Menus/"+loggeduser.getRole()+".fxml");
 
+    }
+
+    public void removeOrphaned(ActionEvent evt) {
+        OrderService.removeOrphanedForUser(loggeduser,this);
     }
 }
 

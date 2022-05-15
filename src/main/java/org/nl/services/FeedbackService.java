@@ -28,7 +28,7 @@ public class FeedbackService {
         feedbackRepository.insert(new Feedback(username, text, date));
     }
 
-    public static void printAllFeedback(){
+    /*public static void printAllFeedback(){
         NitriteCollection nc = feedbackRepository.getDocumentCollection();
         org.dizitart.no2.Cursor lind = nc.find();
         for (Document d : lind) {
@@ -36,7 +36,7 @@ public class FeedbackService {
             System.out.println("" + d.get("username") + " " + d.get("text") + " " + ft.format(d.get("date")));
         }
         System.out.println();
-    }
+    }*/
 
     public static Cursor<Feedback> getAllFeedbacks() {
         return feedbackRepository.find(
