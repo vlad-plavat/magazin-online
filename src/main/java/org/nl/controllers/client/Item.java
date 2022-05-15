@@ -28,6 +28,8 @@ import org.nl.services.UserService;
 import java.io.IOException;
 import java.net.URL;
 
+import static org.nl.services.FileSystemService.imgFromPrd;
+
 public class Item {
 
     @FXML
@@ -70,7 +72,7 @@ public class Item {
             ((Text)pane.getChildren().get(4)).setFill(Color.RED);
         }
         ((Text)pane.getChildren().get(6)).setText(p.getDescription());
-        ((ImageView)((HBox)pane.getChildren().get(0)).getChildren().get(0)).setImage(new Image(p.getImageAddr()));
+        ((ImageView)((HBox)pane.getChildren().get(0)).getChildren().get(0)).setImage(new Image(imgFromPrd(p)));
     }
 
     @FXML
@@ -118,7 +120,7 @@ public class Item {
 
         ((TextField)pane.getChildren().get(4)).setText(RegistrationController.loggeduser.getAux());
         ((Text)pane.getChildren().get(7)).setText(RegistrationController.loggeduser.getUsername());
-        ((ImageView)((HBox)pane.getChildren().get(0)).getChildren().get(0)).setImage(new Image(p.getImageAddr()));
+        ((ImageView)((HBox)pane.getChildren().get(0)).getChildren().get(0)).setImage(new Image(imgFromPrd(p)));
     }
 
 }

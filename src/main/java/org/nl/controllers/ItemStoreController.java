@@ -22,6 +22,8 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import static org.nl.services.FileSystemService.getFullPath;
+
 public class ItemStoreController {
     @FXML
     private TextField priceField;
@@ -65,20 +67,18 @@ public class ItemStoreController {
         );
         File newImage = fileChooser.showOpenDialog(((Node)mouseEvent.getSource()).getScene().getWindow());
         if(newImage!=null) {    //daca am selectat o alta imagine o salvez
-            productImage.setImage(new Image("file:/" + newImage.getPath()));
-            URL resPath = Main.class.getClassLoader().getResource("");
-            if(resPath!=null) {
-                //extrag pathul pentru folderul de resurse, poza veche si poza noua
-                String finalOldPath = resPath.getPath().substring(1) + "/" +
-                        ProductService.getProduct(productId).getImageAddr();
-                String finalNewPath = resPath.getPath().substring(1) + "productPictures/" + productId + "." +
-                        FilenameUtils.getExtension(newImage.getName());
-                try {
-                    Files.deleteIfExists(Path.of(finalOldPath));//sterg poza veche
-                    Files.copy(Path.of(newImage.getPath()), Path.of(finalNewPath));//adaug poza noua
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
+            //extrag pathul pentru folderul de resurse, poza veche si poza noua
+            String finalOldPath = getFullPath("productImages") + "/" +
+                    ProductService.getProduct(productId).getImageAddr();
+            String finalNewPath = getFullPath("productImages")+"/" + productId + "." +
+                    FilenameUtils.getExtension(newImage.getName());
+            try {
+                Files.deleteIfExists(Path.of(finalOldPath));//sterg poza veche
+                Files.copy(Path.of(newImage.getPath()), Path.of(finalNewPath));//adaug poza noua
+                productImage.setImage(new Image("file:/" + newImage.getPath()));
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }

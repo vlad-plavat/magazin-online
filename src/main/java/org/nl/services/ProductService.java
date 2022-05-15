@@ -21,6 +21,8 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import static org.nl.services.FileSystemService.getFullPath;
+
 public class ProductService {
 
     private static ObjectRepository<Product> productRepository;
@@ -43,8 +45,13 @@ public class ProductService {
     }
 
     public static Product getProduct(int idProduct){
-        return productRepository.find(
-                ObjectFilters.eq("idProdct", idProduct), FindOptions.limit(0, 1)).toList().get(0);
+        try {
+            return productRepository.find(
+                    ObjectFilters.eq("idProdct", idProduct), FindOptions.limit(0, 1)).toList().get(0);
+        }catch (IndexOutOfBoundsException e){
+            return new Product();
+        }
+
     }
 
     private static void checkProductIDDoesNotAlreadyExist(int ID) throws ProductIDAlreadyExistsException {
@@ -91,16 +98,13 @@ public class ProductService {
 
     public static void removeProduct(int productID, StoreCheckController scc){
         Product p = getProduct(productID);
-        URL resPath = Main.class.getClassLoader().getResource("");
-        if(resPath!=null){
-            String finalPath = resPath.getPath().substring(1) +"/"+ p.getImageAddr();
-            try {
-                Files.deleteIfExists(Path.of(finalPath));
-                productRepository.remove(p);
-                scc.reloadProducts(null);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        String finalPath = getFullPath("productImages") +"/"+ p.getImageAddr();
+        try {
+            productRepository.remove(p);
+            scc.reloadProducts(null);
+            Files.deleteIfExists(Path.of(finalPath));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

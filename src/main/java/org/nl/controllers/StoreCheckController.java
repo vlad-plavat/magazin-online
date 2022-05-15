@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.net.URL;
 
 import static org.nl.controllers.RegistrationController.loggeduser;
+import static org.nl.services.FileSystemService.imgFromPrd;
 import static org.nl.services.UserService.encodePassword;
 
 public class StoreCheckController {
@@ -100,8 +101,8 @@ public class StoreCheckController {
 
             ((TextField)newPane.getChildren().get(5)).setText(p.getName());
             newPane.setLayoutY(i*125);
-
-            ((ImageView)newPane.getChildren().get(0)).setImage(new Image(p.getImageAddr()));
+            System.out.println(imgFromPrd(p));
+            ((ImageView)newPane.getChildren().get(0)).setImage(new Image(imgFromPrd(p)));
 
             //((Text)newPane.getChildren().get(7)).setText(""+p.getIdProdct());
 

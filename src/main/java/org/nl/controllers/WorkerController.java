@@ -21,6 +21,8 @@ import org.nl.services.StageService;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 
+import static org.nl.services.FileSystemService.imgFromPrd;
+
 public class WorkerController {
 
     @FXML
@@ -81,7 +83,7 @@ public class WorkerController {
 
 
             newPane.setLayoutY(i*125);
-            ((ImageView)newPane.getChildren().get(0)).setImage(new Image(p.getImageAddr()));
+            ((ImageView)newPane.getChildren().get(0)).setImage(new Image(imgFromPrd(p)));
         }catch(Exception e){
             System.out.println(e.getMessage());
         }

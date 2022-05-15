@@ -20,6 +20,8 @@ import org.nl.services.StageService;
 
 import java.net.URL;
 
+import static org.nl.services.FileSystemService.imgFromPrd;
+
 public class Shop {
     @FXML
     public ChoiceBox<String> sortBy;
@@ -85,7 +87,7 @@ public class Shop {
             ((Text)newPane.getChildren().get(7)).setText(""+p.getIdProdct());
 
             newPane.setLayoutY(i*125);
-            ((ImageView)newPane.getChildren().get(0)).setImage(new Image(p.getImageAddr()));
+            ((ImageView)newPane.getChildren().get(0)).setImage(new Image(imgFromPrd(p)));
         }catch(Exception e){
             System.out.println(e.getMessage());
         }

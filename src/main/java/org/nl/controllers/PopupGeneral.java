@@ -33,9 +33,11 @@ public class PopupGeneral {
     public void confirm(ActionEvent evt){
         try {
             onAct.invoke(target,args);
-            goBack(evt);
+
         } catch (IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
+        }finally {
+            goBack(evt);
         }
     }
     @FXML

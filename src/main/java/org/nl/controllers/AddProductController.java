@@ -22,6 +22,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Random;
 
+import static org.nl.services.FileSystemService.getFullPath;
+
 public class AddProductController {
     @FXML
     public ImageView productImage;
@@ -75,17 +77,16 @@ public class AddProductController {
         int productId;
         do {
             productId = random.nextInt();
-        }while(ProductService.doesIdExist(productId));
+        }while(productId==0 || ProductService.doesIdExist(productId));
 
         try {
-            URL resPath = Main.class.getClassLoader().getResource("");
-            if(resPath==null)
-                throw new IOException();
-            String finalPath = resPath.getPath().substring(1) + "productPictures/" + productId + "." +
+
+            String finalPath = getFullPath("productImages") + "/" + productId + "." +
                     FilenameUtils.getExtension(imageFile.getName());
             Files.copy(Path.of(imageFile.getPath()), Path.of(finalPath));
+
             ProductService.addProduct(productId,nameField.getText(),price,dimensionsField.getText(),
-                    descriptionBox.getText(),stock,"productPictures/"+productId + "." +
+                    descriptionBox.getText(),stock,productId + "." +
                             FilenameUtils.getExtension(imageFile.getName()));
 
             ((Stage) ((Node) evt.getSource()).getScene().getWindow()).close();
