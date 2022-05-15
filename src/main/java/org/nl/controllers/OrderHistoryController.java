@@ -44,7 +44,7 @@ public class OrderHistoryController {
             pane.getChildren().remove(0);
         }
 
-        Cursor<Order> all = OrderService.getAllPlacedOrders();
+        Cursor<Order> all = OrderService.getAllOrders();
 
         int i = 0;
         for(Order o : all){
@@ -65,6 +65,7 @@ public class OrderHistoryController {
                 throw new RuntimeException("Could not load fxml file item.fxml");
             FXMLLoader loader = new FXMLLoader(toFxml);
             Pane newPane = loader.load();
+            ((ClientOrderItem)loader.getController()).setOrderDate(o.getDate());
 
             pane.getChildren().add(newPane);
             Product p = ProductService.getProduct(o.getIdProduct());

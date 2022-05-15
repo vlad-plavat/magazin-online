@@ -27,6 +27,10 @@ public class OrderService {
         return orderRepository.find(ObjectFilters.eq("status", "placed"));
     }
 
+    public static  Cursor<Order> getAllOrders(){
+        return orderRepository.find();
+    }
+
     public static boolean checkOrderName(String prodName, String searchField) {
         String[] words = searchField.split("\\s+");
         for(String s : words){
