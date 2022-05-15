@@ -99,11 +99,13 @@ public class StoreCheckController {
             pane.getChildren().add(newPane);
 
             ((TextField)newPane.getChildren().get(5)).setText(p.getName());
+            newPane.setLayoutY(i*125);
+
             ((ImageView)newPane.getChildren().get(0)).setImage(new Image(p.getImageAddr()));
 
             //((Text)newPane.getChildren().get(7)).setText(""+p.getIdProdct());
 
-            newPane.setLayoutY(i*125);
+
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
@@ -143,7 +145,9 @@ public class StoreCheckController {
             URL toFxml = Main.class.getClassLoader().getResource("addProduct.fxml");
             if (toFxml == null)
                 throw new RuntimeException("Could not load addProduct.fxml");
-            Pane root = FXMLLoader.load(toFxml);
+            FXMLLoader newLoader = new FXMLLoader(toFxml);
+            Pane root = newLoader.load();
+            ((AddProductController)newLoader.getController()).setScc(this);
 
             final Stage infoPage = new Stage();
             infoPage.initModality(Modality.WINDOW_MODAL);

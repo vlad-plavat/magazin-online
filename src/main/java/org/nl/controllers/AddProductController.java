@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import org.apache.commons.io.FilenameUtils;
 import org.nl.Main;
 import org.nl.exceptions.ProductIDAlreadyExistsException;
@@ -37,6 +38,11 @@ public class AddProductController {
 
     private File imageFile;
 
+    private StoreCheckController scc;
+
+    public void setScc(StoreCheckController scc) {
+        this.scc = scc;
+    }
 
     public void saveProduct(ActionEvent evt) {
         if(nameField.getText().isBlank()){
@@ -82,6 +88,8 @@ public class AddProductController {
                     descriptionBox.getText(),stock,"productPictures/"+productId + "." +
                             FilenameUtils.getExtension(imageFile.getName()));
 
+            ((Stage) ((Node) evt.getSource()).getScene().getWindow()).close();
+            scc.reloadProducts(evt);
         } catch (IOException | ProductIDAlreadyExistsException e) {
             e.printStackTrace();
         }

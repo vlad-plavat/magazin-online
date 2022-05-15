@@ -72,7 +72,6 @@ public class WorkerController {
             pane.getChildren().add(newPane);
             Product p = ProductService.getProduct(o.getIdProduct());
 
-            ((ImageView)newPane.getChildren().get(0)).setImage(new Image(p.getImageAddr()));
             ((Text)newPane.getChildren().get(1)).setText(p.getName());
             ((Text)newPane.getChildren().get(2)).setText(String.format("Price: $%.2f",p.getPrice()));
             ((Text)newPane.getChildren().get(3)).setText("Dimensions: " + p.getDimensions());
@@ -82,6 +81,7 @@ public class WorkerController {
 
 
             newPane.setLayoutY(i*125);
+            ((ImageView)newPane.getChildren().get(0)).setImage(new Image(p.getImageAddr()));
         }catch(Exception e){
             System.out.println(e.getMessage());
         }

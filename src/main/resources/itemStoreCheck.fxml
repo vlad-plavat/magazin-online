@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
 <Pane layoutX="25.0" prefHeight="125.0" prefWidth="1225.0" style="-fx-background-color: #00000000;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.nl.controllers.ItemStoreController">
-    <ImageView fitHeight="100.0" fitWidth="180.0" layoutX="20.0" layoutY="12.5" pickOnBounds="true" preserveRatio="true">
+    <ImageView fx:id="productImage" fitHeight="100.0" fitWidth="180.0" layoutX="20.0" layoutY="12.5" pickOnBounds="true" preserveRatio="true">
         <Image url="@icon.png" />
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
     </ImageView>
    <TextField fx:id="priceField" layoutX="294.0" layoutY="54.0" onAction="#saveChanges" onMouseClicked="#turnColor" prefHeight="25.0" prefWidth="200.0" promptText="Price" style="-fx-background-color: white; -fx-border-width: 1px; -fx-border-color: gray;" />
    <TextField fx:id="dimensionField" layoutX="691.0" layoutY="54.0" onAction="#saveChanges" onMouseClicked="#turnColor" prefHeight="25.0" prefWidth="283.0" promptText="Dimension" style="-fx-background-color: white; -fx-border-width: 1px; -fx-border-color: gray;" />

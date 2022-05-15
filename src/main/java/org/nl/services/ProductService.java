@@ -1,11 +1,13 @@
 package org.nl.services;
 
 import javafx.scene.control.TextField;
+import org.apache.commons.io.FilenameUtils;
 import org.dizitart.no2.FindOptions;
 import org.dizitart.no2.SortOrder;
 import org.dizitart.no2.objects.Cursor;
 import org.dizitart.no2.objects.ObjectRepository;
 import org.dizitart.no2.objects.filters.ObjectFilters;
+import org.nl.Main;
 import org.nl.controllers.RegistrationController;
 import org.nl.controllers.StoreCheckController;
 import org.nl.exceptions.ProductIDAlreadyExistsException;
@@ -13,6 +15,11 @@ import org.nl.exceptions.SimpleTextException;
 import org.nl.exceptions.UsernameAlreadyExistsException;
 import org.nl.model.Product;
 import org.nl.model.User;
+
+import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class ProductService {
 
@@ -84,8 +91,17 @@ public class ProductService {
 
     public static void removeProduct(int productID, StoreCheckController scc){
         Product p = getProduct(productID);
-        productRepository.remove(p);
-        scc.reloadProducts(null);
+        URL resPath = Main.class.getClassLoader().getResource("");
+        if(resPath!=null){
+            String finalPath = resPath.getPath().substring(1) +"/"+ p.getImageAddr();
+            try {
+                Files.deleteIfExists(Path.of(finalPath));
+                productRepository.remove(p);
+                scc.reloadProducts(null);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public static boolean checkProductPrice(Product p, TextField minPrice, TextField maxPrice) {

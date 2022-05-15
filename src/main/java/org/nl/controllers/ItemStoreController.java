@@ -6,11 +6,21 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
+import org.apache.commons.io.FilenameUtils;
+import org.nl.Main;
 import org.nl.model.Product;
 import org.nl.services.ProductService;
 
 import javax.validation.constraints.Null;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class ItemStoreController {
     @FXML
@@ -23,6 +33,8 @@ public class ItemStoreController {
     private TextField descriptionField;
     @FXML
     private TextField nameField;
+    @FXML
+    private ImageView productImage;
 
     @FXML
     private Button withdrawButton;
@@ -40,8 +52,35 @@ public class ItemStoreController {
 
     @FXML
     public void initialize() {
+        productImage.setOnMouseClicked(this::changePicture);
 
+    }
 
+    @FXML
+    private void changePicture(MouseEvent mouseEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Change Product Image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("All Supported Images", "*.jpg","*.png","*.gif","*.bmp")
+        );
+        File newImage = fileChooser.showOpenDialog(((Node)mouseEvent.getSource()).getScene().getWindow());
+        if(newImage!=null) {    //daca am selectat o alta imagine o salvez
+            productImage.setImage(new Image("file:/" + newImage.getPath()));
+            URL resPath = Main.class.getClassLoader().getResource("");
+            if(resPath!=null) {
+                //extrag pathul pentru folderul de resurse, poza veche si poza noua
+                String finalOldPath = resPath.getPath().substring(1) + "/" +
+                        ProductService.getProduct(productId).getImageAddr();
+                String finalNewPath = resPath.getPath().substring(1) + "productPictures/" + productId + "." +
+                        FilenameUtils.getExtension(newImage.getName());
+                try {
+                    Files.deleteIfExists(Path.of(finalOldPath));//sterg poza veche
+                    Files.copy(Path.of(newImage.getPath()), Path.of(finalNewPath));//adaug poza noua
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     private void setProduct(){
@@ -79,7 +118,6 @@ public class ItemStoreController {
         }
 
     }
-
 
     @FXML
     public void turnColor(MouseEvent evt){
