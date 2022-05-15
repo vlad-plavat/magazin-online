@@ -49,7 +49,8 @@ public class ProductService {
             return productRepository.find(
                     ObjectFilters.eq("idProdct", idProduct), FindOptions.limit(0, 1)).toList().get(0);
         }catch (IndexOutOfBoundsException e){
-            return new Product();
+            return new Product(0,"[the product has been withdrawn from sale]",0f,"",
+                    "The product you are searching for is no longer available.",0,"icon.png");
         }
 
     }
