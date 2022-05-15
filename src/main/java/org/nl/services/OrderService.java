@@ -1,12 +1,10 @@
 package org.nl.services;
 
-import javafx.scene.control.TextField;
 import org.dizitart.no2.FindOptions;
 import org.dizitart.no2.objects.Cursor;
 import org.dizitart.no2.objects.ObjectRepository;
 import org.dizitart.no2.objects.filters.ObjectFilters;
 import org.nl.model.Order;
-import org.nl.model.Product;
 
 import java.util.Date;
 
@@ -25,6 +23,10 @@ public class OrderService {
 
     public static Cursor<Order> getAllPlacedOrders() {
         return orderRepository.find(ObjectFilters.eq("status", "placed"));
+    }
+
+    public static  Cursor<Order> getAllOrders(){
+        return orderRepository.find();
     }
 
     public static boolean checkOrderName(String prodName, String searchField) {
@@ -49,5 +51,10 @@ public class OrderService {
                 ObjectFilters.eq("date", orderDate), ObjectFilters.eq("username", userOrd)));
         o.process();
         orderRepository.insert(o);
+    }
+
+    public static Cursor<Order> getAllOrdersBetween(Date d1, Date d2) {
+        return orderRepository.find(ObjectFilters.and(
+                ObjectFilters.gte("date", d1), ObjectFilters.lt("date", d2)));
     }
 }
