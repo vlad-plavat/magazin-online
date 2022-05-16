@@ -1,6 +1,5 @@
 package org.nl.controllers.client;
 
-import com.sun.prism.ReadbackGraphics;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -39,7 +38,7 @@ public class OrderMenu {
         ProductService.orderProduct(productID);
         OrderService.addOrder(RegistrationController.loggeduser.getUsername(),
                 productID,new Date(),addressField.getText());
-        StageService.loadPage(mainStage,"shop.fxml");
+        StageService.loadPage(mainStage, "client/shop.fxml");
         goBack(evt);
     }
 }
