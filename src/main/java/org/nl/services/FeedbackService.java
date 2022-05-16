@@ -4,17 +4,12 @@ import javafx.scene.control.TextField;
 import org.dizitart.no2.FindOptions;
 import org.dizitart.no2.SortOrder;
 import org.dizitart.no2.objects.Cursor;
-import org.dizitart.no2.Document;
-import org.dizitart.no2.NitriteCollection;
 import org.dizitart.no2.objects.ObjectRepository;
 import org.dizitart.no2.objects.filters.ObjectFilters;
-import org.nl.controllers.FeedbackViewController;
+import org.nl.controllers.manager.FeedbackViewController;
 import org.nl.model.Feedback;
-import org.nl.model.Order;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Iterator;
 
 public class FeedbackService {
     private static ObjectRepository<Feedback> feedbackRepository;

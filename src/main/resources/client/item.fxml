@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane layoutX="25.0" prefHeight="125.0" prefWidth="1225.0" style="-fx-background-color: #00000000;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.nl.controllers.client.Item">
+    <ImageView fitHeight="100.0" fitWidth="180.0" layoutX="20.0" layoutY="12.5" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../icon.png" />
+    </ImageView>
+    <Text layoutX="213.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dulap cu 2 usi si chestii faine prin el" textAlignment="CENTER" wrappingWidth="800.0">
+        <font>
+            <Font name="System Bold" size="30.0" />
+        </font>
+    </Text>
+    <Text layoutX="221.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Price: 76.9$" textAlignment="CENTER" wrappingWidth="291.462890625">
+        <font>
+            <Font size="22.0" />
+        </font>
+    </Text>
+    <Text layoutX="579.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dimensions: H:2m W:1m D:50cm" textAlignment="CENTER" wrappingWidth="440.462890625">
+        <font>
+            <Font size="22.0" />
+        </font>
+    </Text>
+    <Text layoutX="1050.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Out of stock" textAlignment="CENTER" wrappingWidth="160.462890625">
+        <font>
+            <Font size="22.0" />
+        </font>
+    </Text>
+    <Button layoutX="1065.0" layoutY="79.0" mnemonicParsing="false" onAction="#detailsPage" text="Details" />
+    <Button layoutX="1164.0" layoutY="79.0" mnemonicParsing="false" onAction="#order" text="Order" />
+   <Text fx:id="idText" fill="TRANSPARENT" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+      <font>
+         <Font size="0.01" />
+      </font>
+   </Text>
+</Pane>

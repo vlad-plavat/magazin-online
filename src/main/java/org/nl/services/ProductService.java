@@ -1,23 +1,16 @@
 package org.nl.services;
 
 import javafx.scene.control.TextField;
-import org.apache.commons.io.FilenameUtils;
 import org.dizitart.no2.FindOptions;
 import org.dizitart.no2.SortOrder;
 import org.dizitart.no2.objects.Cursor;
 import org.dizitart.no2.objects.ObjectRepository;
 import org.dizitart.no2.objects.filters.ObjectFilters;
-import org.nl.Main;
-import org.nl.controllers.RegistrationController;
-import org.nl.controllers.StoreCheckController;
+import org.nl.controllers.manager.StoreCheckController;
 import org.nl.exceptions.ProductIDAlreadyExistsException;
-import org.nl.exceptions.SimpleTextException;
-import org.nl.exceptions.UsernameAlreadyExistsException;
 import org.nl.model.Product;
-import org.nl.model.User;
 
 import java.io.IOException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 

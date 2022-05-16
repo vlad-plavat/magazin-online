@@ -68,7 +68,7 @@ public class Shop {
 
     private void addProductOnScreen(Product p, int i){
         try {
-            URL toFxml = Main.class.getClassLoader().getResource("item.fxml");
+            URL toFxml = Main.class.getClassLoader().getResource("client/item.fxml");
             if(toFxml == null)
                 throw new RuntimeException("Could not load fxml file item.fxml");
             Pane newPane = FXMLLoader.load(toFxml);

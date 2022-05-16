@@ -17,13 +17,11 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.nl.Main;
-import org.nl.controllers.AccountSettingsController;
 import org.nl.controllers.RegistrationController;
 import org.nl.exceptions.OutOfStockException;
 import org.nl.model.Product;
 import org.nl.services.ProductService;
 import org.nl.services.StageService;
-import org.nl.services.UserService;
 
 import java.io.IOException;
 import java.net.URL;
@@ -38,7 +36,7 @@ public class Item {
     @FXML
     public void detailsPage(ActionEvent evt){
         try {
-            URL toFxml = Main.class.getClassLoader().getResource("productInfo.fxml");
+            URL toFxml = Main.class.getClassLoader().getResource("client/productInfo.fxml");
             if (toFxml == null)
                 throw new RuntimeException("Could not load productInfo.fxml");
             Pane root = FXMLLoader.load(toFxml);
@@ -85,7 +83,7 @@ public class Item {
 
             //send here
 
-            URL toFxml = Main.class.getClassLoader().getResource("OrderMenu.fxml");
+            URL toFxml = Main.class.getClassLoader().getResource("client/OrderMenu.fxml");
             if (toFxml == null)
                 throw new RuntimeException("Could not load OrderMenu.fxml");
             FXMLLoader newFXML = new FXMLLoader(toFxml);

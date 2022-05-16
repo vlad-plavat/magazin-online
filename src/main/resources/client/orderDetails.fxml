@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-image: url('background-scroll.png');" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+    <!--xmlns:fx="http://javafx.com/fxml/1"-->
+    <HBox alignment="CENTER" layoutX="30.0" layoutY="53.0" prefHeight="312.0" prefWidth="457.0">
+        <ImageView fitHeight="250.0" fitWidth="280.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../icon.png" />
+        </ImageView>
+    </HBox>
+    <Text layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dulap" textAlignment="CENTER" wrappingWidth="700.0">
+        <font>
+            <Font name="System Bold" size="35.0" />
+        </font>
+    </Text>
+    <Text layoutX="508.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Price: 22$" textAlignment="CENTER" wrappingWidth="150.0">
+        <font>
+            <Font size="30.0" />
+        </font>
+    </Text>
+    <Text layoutX="27.0" layoutY="424.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dimensions: H:2m W:1m D:50cm" wrappingWidth="644.1962585449219">
+        <font>
+            <Font size="30.0" />
+        </font>
+    </Text>
+    <Text layoutX="496.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status: placed" textAlignment="CENTER" wrappingWidth="174.109375">
+        <font>
+            <Font size="30.0" />
+        </font>
+    </Text>
+    <Text layoutX="296.0" layoutY="462.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description">
+        <font>
+            <Font name="System Bold" size="20.0" />
+        </font>
+    </Text>
+    <Text layoutX="14.0" layoutY="484.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse " textAlignment="JUSTIFY" wrappingWidth="671.1962890625">
+        <font>
+            <Font size="14.0" />
+        </font>
+    </Text>
+   <Text layoutX="28.0" layoutY="377.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address:" wrappingWidth="433.10546875">
+      <font>
+         <Font size="30.0" />
+      </font>
+   </Text>
+</AnchorPane>
