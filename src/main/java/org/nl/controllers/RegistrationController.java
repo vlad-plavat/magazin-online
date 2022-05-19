@@ -100,7 +100,6 @@ public class RegistrationController {
     }
     @FXML
     public void handleLoginAction(ActionEvent evt){
-        UserService.readusers();
         String name = usernameField.getText();
         String pass = passwordField.getText();
 
@@ -141,7 +140,6 @@ public class RegistrationController {
         } catch (UsernameAlreadyExistsException | SimpleTextException e) {
             registrationMessage.setText(e.getMessage());
         }
-        UserService.readusers();
     }
 
     private void goToMenu(ActionEvent evt){
