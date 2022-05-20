@@ -68,7 +68,7 @@ public class FeedbackViewController {
                     (evt)-> {
                         try {
                             StageService.createYesNoPopup(pane.getScene(),"Delete feedback?",
-                                    "Are you sure you want ti delete the feedback?",
+                                    "Are you sure you want to delete the feedback?",
                                     null,
                                     FeedbackService.class.getMethod("deleteFeedback", Feedback.class, FeedbackViewController.class),
                                     f,this);

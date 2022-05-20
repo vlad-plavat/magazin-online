@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.dizitart.no2.Nitrite;
 import org.dizitart.no2.NitriteCollection;
+import org.dizitart.no2.objects.Cursor;
 import org.dizitart.no2.objects.ObjectRepository;
 import org.nl.Main;
 import org.nl.controllers.RegistrationController;
@@ -39,7 +40,10 @@ public class UserService {
                 .openOrCreate("admin", "admin");
 
         userRepository = database.getRepository(User.class);
+    }
 
+    public static void closeDatabase(){
+        database.close();
     }
 
     public static User addUser(String username, String password, String role, String aux) throws UsernameAlreadyExistsException {
@@ -61,8 +65,12 @@ public class UserService {
 
     }
 
-    public static void deleteUser(){
+    public static void simpleDelete(){
         userRepository.remove(RegistrationController.loggeduser);
+    }
+
+    public static void deleteUser(){
+        simpleDelete();
         try {
             URL toFxml = Main.class.getClassLoader().getResource("register.fxml");
             if(toFxml == null)
@@ -79,13 +87,9 @@ public class UserService {
 
     }
 
-    public static void readusers(){
-        NitriteCollection nc = userRepository.getDocumentCollection();
-        /*Cursor lind = nc.find();
-        Iterator it = lind.iterator();
-        while (it.hasNext()){
-            System.out.println(  ((Document)(it.next())).get("username")  );
-        }*/
+
+    public static Cursor<User> getAllUsers(){
+        return userRepository.find();
     }
 
     public static User checkLoginCredentials(String username, String password) throws WrongPasswordException, WrongUsernameException {

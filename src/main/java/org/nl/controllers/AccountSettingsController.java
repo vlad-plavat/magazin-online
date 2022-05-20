@@ -66,7 +66,7 @@ public class AccountSettingsController {
     }
     @FXML
     public void saveChanges(ActionEvent evt){
-        UserService.readusers();
+        //UserService.readusers();
         String name = usernameField.getText();
         String oldPass = oldPasswordField.getText();
         String newPass = newPasswordField.getText();
@@ -99,7 +99,6 @@ public class AccountSettingsController {
 
     @FXML
     public void deleteAccount(ActionEvent evt) {
-        UserService.readusers();
         String name = usernameField.getText();
         String oldPass = oldPasswordField.getText();
         String newPass = newPasswordField.getText();

@@ -14,13 +14,13 @@ import java.nio.file.Path;
 
 public class Main extends Application {
 
+    public static void closeDatabases() {
+        UserService.closeDatabase();
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
-        initDirectory();
-        UserService.initDatabase();
-        FeedbackService.initDatabase();
-        ProductService.initDatabase();
-        OrderService.initDatabase();
+        initDatabases();
         URL toFxml = getClass().getClassLoader().getResource("register.fxml");
         if(toFxml != null) {
             Parent root = FXMLLoader.load(toFxml);
@@ -33,7 +33,15 @@ public class Main extends Application {
         }else throw new RuntimeException("FXML file not found!");
     }
 
-    private void initDirectory() {
+    public static void initDatabases(){
+        initDirectory();
+        UserService.initDatabase();
+        FeedbackService.initDatabase();
+        ProductService.initDatabase();
+        OrderService.initDatabase();
+    }
+
+    private static void initDirectory() {
         Path applicationHomePath = FileSystemService.APPLICATION_HOME_PATH;
         if (!Files.exists(applicationHomePath))
             if(!applicationHomePath.toFile().mkdirs())

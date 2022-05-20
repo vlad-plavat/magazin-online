@@ -8,7 +8,7 @@ public class SimpleTextException extends Exception{
         this.s = s;
     }
 
-    public String getUsername() {
+    public String getText() {
         return s;
     }
 }
