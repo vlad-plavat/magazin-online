@@ -4,6 +4,8 @@ import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.*;
 import org.nl.controllers.RegistrationController;
 import org.nl.exceptions.UsernameAlreadyExistsException;
+import org.nl.exceptions.WrongPasswordException;
+import org.nl.exceptions.WrongUsernameException;
 import org.nl.model.User;
 import org.nl.services.FileSystemService;
 import org.nl.services.StageService;
@@ -52,6 +54,7 @@ public class UserServiceTest {
     @Test
     @DisplayName("Database is initialized, and there are no users")
     void testDatabaseIsInitializedAndNoUserIsPersisted() {
+        assertThat(UserService.getDatabase()).isNotNull();
         assertThat(UserService.getAllUsers().toList()).isNotNull();
         assertThat(UserService.getAllUsers().toList()).isEmpty();
     }
@@ -68,6 +71,19 @@ public class UserServiceTest {
         assertThat(user.getPassword()).isEqualTo(UserService.encodePassword(NAME, PASSWORD));
         assertThat(user.getRole()).isEqualTo(ROLE);
         assertThat(user.getAux()).isEqualTo(AUX);
+    }
+
+    @Test
+    @DisplayName("Encripting passwords works")
+    void testEncription() {
+        String e1 = UserService.encodePassword("something","else");
+        String e2 = UserService.encodePassword("something","else");
+        String e3 = UserService.encodePassword("something2","else");
+        String e4 = UserService.encodePassword("something","else2");
+        assertThat(e2).isEqualTo(e1);
+        assertThat(e3).isNotEqualTo(e1);
+        assertThat(e4).isNotEqualTo(e1);
+
     }
 
     @Test
@@ -161,6 +177,21 @@ public class UserServiceTest {
             if(user.getUsername().equals(NAME))
                 foundUser=user;
         assertThat(foundUser).isNull();
+    }
+
+    @Test
+    @DisplayName("Can check user credentials")
+    void testChechCredentials() throws UsernameAlreadyExistsException, WrongUsernameException, WrongPasswordException {
+        UserService.addUser(NAME, PASSWORD, ROLE, AUX);
+        UserService.addUser(NAME+"2", PASSWORD+"1234", ROLE, AUX);
+        assertThat(UserService.getAllUsers().toList()).isNotEmpty();
+        assertThat(UserService.getAllUsers().toList()).size().isEqualTo(2);
+
+
+        assertThat(UserService.checkLoginCredentials(NAME,PASSWORD)).isNotNull();
+        assertThat(UserService.checkLoginCredentials(NAME+"2",PASSWORD+"1234")).isNotNull();
+        assertThrows(WrongUsernameException.class, () -> UserService.checkLoginCredentials(NAME+"nobody",PASSWORD));
+        assertThrows(WrongPasswordException.class, () -> UserService.checkLoginCredentials(NAME,PASSWORD+"nopass"));
 
     }
 }
