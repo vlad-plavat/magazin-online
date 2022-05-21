@@ -32,7 +32,7 @@ class LoginRegisterTest {
 
     @BeforeEach
     void setUp() throws Exception {
-        FileSystemService.setAppFolder(".test-registration-example");
+        FileSystemService.setAppFolder("database-test");
         FileSystemService.initDirectory();
         FileUtils.cleanDirectory(FileSystemService.getApplicationHomeFolder().toFile());
         Main.initDatabases();
@@ -47,7 +47,7 @@ class LoginRegisterTest {
     @Start
     void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("register.fxml")));
-        primaryStage.setTitle("Registration Example");
+        primaryStage.setTitle("Nature Leaf Testing");
         primaryStage.setScene(new Scene(root, 1280, 720));
         primaryStage.show();
         //new Main().start(primaryStage);
@@ -72,6 +72,9 @@ class LoginRegisterTest {
         robot.write(PASSWORD);
         robot.clickOn("#loginButton");
         assertThat(robot.lookup("#registrationMessage").queryText()).hasText("Please enter a username and password.");
+        robot.clickOn("#toRegButton");
+        robot.clickOn("#toLoginButton");
+        assertThat(robot.lookup("#registrationMessage").queryText()).hasText("");
         robot.doubleClickOn("#passwordField");
         robot.press(KeyCode.BACK_SPACE);
         robot.clickOn("#usernameField");

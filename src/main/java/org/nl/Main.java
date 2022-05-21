@@ -34,19 +34,13 @@ public class Main extends Application {
     }
 
     public static void initDatabases(){
-        initDirectory();
+        FileSystemService.initDirectory();
         UserService.initDatabase();
         FeedbackService.initDatabase();
         ProductService.initDatabase();
         OrderService.initDatabase();
     }
 
-    private static void initDirectory() {
-        Path applicationHomePath = FileSystemService.APPLICATION_HOME_PATH;
-        if (!Files.exists(applicationHomePath))
-            if(!applicationHomePath.toFile().mkdirs())
-                throw new RuntimeException("Could not initialize directories");
-    }
 
 
     public static void main(String[] args) {
