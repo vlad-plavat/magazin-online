@@ -32,8 +32,14 @@ public class FileSystemService {
 
     public static void initDirectory() {
         Path applicationHomePath = getApplicationHomeFolder();
-        if (!Files.exists(applicationHomePath))
-            if(!applicationHomePath.toFile().mkdirs())
+        Path imgPath = Paths.get(applicationHomePath.toString(), "productImages");
+        if (!Files.exists(applicationHomePath)) {
+            if (!applicationHomePath.toFile().mkdirs())
                 throw new RuntimeException("Could not initialize directories");
+        }
+        if (!Files.exists(imgPath)) {
+            if (!imgPath.toFile().mkdirs())
+                throw new RuntimeException("Could not initialize directories");
+        }
     }
 }
