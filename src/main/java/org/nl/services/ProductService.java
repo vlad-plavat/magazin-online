@@ -90,16 +90,20 @@ public class ProductService {
         productRepository.update(p);
     }
 
-    public static void removeProduct(int productID, StoreCheckController scc){
+    public static void simpleRemove(int productID){
         Product p = getProduct(productID);
         String finalPath = getFullPath("productImages") +"/"+ p.getImageAddr();
         try {
             productRepository.remove(p);
-            scc.reloadProducts(null);
             Files.deleteIfExists(Path.of(finalPath));
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void removeProduct(int productID, StoreCheckController scc){
+        simpleRemove(productID);
+        scc.reloadProducts(null);
     }
 
     public static boolean checkProductPrice(Product p, TextField minPrice, TextField maxPrice) {
