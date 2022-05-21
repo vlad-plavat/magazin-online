@@ -39,7 +39,7 @@ public class UserServiceTest {
 
     @BeforeEach
     void setUp() throws Exception {
-        FileSystemService.setAppFolder("database-example");
+        FileSystemService.setAppFolder("database-test");
         FileSystemService.initDirectory();
         FileUtils.cleanDirectory(FileSystemService.getApplicationHomeFolder().toFile());
         UserService.initDatabase();
