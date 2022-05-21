@@ -34,7 +34,7 @@ class OrderHistoryTest {
     public static final String[] ROLES = new String[]{"Client", "Worker", "Courier", "Manager"};
 
     private void onlyInit() throws Exception{
-        FileSystemService.setAppFolder(".test-registration-example");
+        FileSystemService.setAppFolder("database-test");
         FileSystemService.initDirectory();
         FileUtils.cleanDirectory(FileSystemService.getApplicationHomeFolder().toFile());
         Main.initDatabases();
@@ -94,7 +94,8 @@ class OrderHistoryTest {
         robot.clickOn("#searchField");
         robot.push(KeyCode.ENTER);
         robot.clickOn("Details");
-
+        robot.clickOn("Description");
+        robot.press(KeyCode.ALT,KeyCode.F4);
     }
 
     @Test

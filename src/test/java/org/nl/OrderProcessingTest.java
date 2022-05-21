@@ -34,7 +34,7 @@ class OrderProcessingTest {
     public static final String[] ROLES = new String[]{"Client", "Worker", "Courier", "Manager"};
 
     private void onlyInit() throws Exception{
-        FileSystemService.setAppFolder(".test-registration-example");
+        FileSystemService.setAppFolder("database-test");
         FileSystemService.initDirectory();
         FileUtils.cleanDirectory(FileSystemService.getApplicationHomeFolder().toFile());
         Main.initDatabases();
@@ -43,7 +43,7 @@ class OrderProcessingTest {
     @BeforeEach
     void setUp() throws Exception {
         onlyInit();
-        UserService.addUser(USERNAME, PASSWORD, ROLES[0], "Timisoara");
+        UserService.addUser(USERNAME, PASSWORD, ROLES[1], "Timisoara");
         ProductService.addProduct(0, "Chair", (float) 24.99, "H: 50 cm", "description", 5, "");
         Date d1 = new Date();
         OrderService.addOrder(USERNAME, 0, d1, "Timisoara");
