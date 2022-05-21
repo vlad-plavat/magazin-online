@@ -25,7 +25,10 @@ import org.testfx.framework.junit5.Start;
 import java.util.Date;
 import java.util.Objects;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.testfx.assertions.api.Assertions.assertThat;
+
+
 
 @ExtendWith(ApplicationExtension.class)
 class StoreCheckTest {
@@ -135,6 +138,86 @@ class StoreCheckTest {
         Assertions.assertThat(p.getChildren().size()).isEqualTo(1);
     }
 
+
+    @Test
+    void sortByTest(FxRobot robot){
+        robot.clickOn("#searchField");
+        robot.push(KeyCode.ENTER);
+        robot.clickOn("#sortBy");
+        robot.clickOn("Price descending");
+
+        double pos1,pos2;
+        Node n;
+        n = robot.lookup("Sofa").query();  assertThat(n).isNotNull();
+        pos1 = n.getParent().getLayoutY();
+        n = robot.lookup("Chair").query();  assertThat(n).isNotNull();
+        pos2 = n.getParent().getLayoutY();
+        Assertions.assertThat(pos1).isLessThan(pos2);
+
+        robot.clickOn("#sortBy");
+        robot.clickOn("Price ascending");
+        n = robot.lookup("Chair").query();  assertThat(n).isNotNull();
+        pos1 = n.getParent().getLayoutY();
+        n = robot.lookup("Sofa").query();  assertThat(n).isNotNull();
+        pos2 = n.getParent().getLayoutY();
+        Assertions.assertThat(pos1).isLessThan(pos2);
+    }
+
+    @Test
+    void addProductTestFailed(FxRobot robot){
+        robot.clickOn("Add product");
+        robot.clickOn("Save product");
+        assertThrows(NoException.class, () -> {
+
+            robot.clickOn("Enter the product's name.");
+            robot.clickOn("Ok");
+            throw new NoException();
+        });
+
+        robot.clickOn("#nameField");
+        robot.write("Table");
+        robot.clickOn("Save product");
+        assertThrows(NoException.class, () -> {
+
+            robot.clickOn("Check price entered!");
+            robot.clickOn("Ok");
+            throw new NoException();
+
+        });
+        robot.clickOn("#priceField");
+        robot.write("32.99");
+        robot.clickOn("Save product");
+        assertThrows(NoException.class, () -> {
+
+            robot.clickOn("Check stock entered!");
+            robot.clickOn("Ok");
+            throw new NoException();
+
+        });
+        robot.clickOn("#stockField");
+        robot.write("13");
+        robot.clickOn("Save product");
+        assertThrows(NoException.class, () -> {
+
+            robot.clickOn("Enter the product's dimensions.");
+            robot.clickOn("Ok");
+            throw new NoException();
+
+        });
+
+        robot.clickOn("#dimensionsField");
+        robot.write("H: 70 cm");
+        robot.clickOn("Save product");
+        assertThrows(NoException.class, () -> {
+
+            robot.clickOn("Select a valid image!");
+            robot.clickOn("Ok");
+            throw new NoException();
+
+        });
+        robot.push(KeyCode.ALT, KeyCode.F4);
+
+    }
 
 
 }
