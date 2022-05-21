@@ -11,6 +11,8 @@ import org.nl.model.User;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static org.nl.controllers.RegistrationController.loggeduser;
+
 public class OrderService {
     private static ObjectRepository<Order> orderRepository;
 
@@ -46,6 +48,7 @@ public class OrderService {
     }
 
     public static Order getOrder(Date orderDate, String userOrd){
+
         return orderRepository.find(
                 ObjectFilters.and( ObjectFilters.eq("date", orderDate), ObjectFilters.eq("username", userOrd)),
                 FindOptions.limit(0, 1)).toList().get(0);
