@@ -10,6 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -150,5 +151,29 @@ public class ProdctListClientTest {
         pos3 = n.getParent().getLayoutY();
         assertThat(pos2).isLessThan(pos1);
         assertThat(pos3).isLessThan(pos2);
+    }
+
+    @Test
+    void
+    testProductDetails(FxRobot robot) throws ProductIDAlreadyExistsException {
+        Pane p = robot.lookup("#pane").query();
+        Assertions.assertThat(p.getChildren().size()).isEqualTo(0);
+        copyImage(100);
+        ProductService.addProduct(100,"First" ,10,"dim1","desc1",0,"100.png");
+
+        robot.doubleClickOn("#searchField");
+        robot.push(KeyCode.BACK_SPACE);
+        robot.push(KeyCode.ENTER);
+        robot.clickOn("Details");
+
+        robot.clickOn("Description");
+        robot.clickOn("Dimensions: dim1");
+        robot.clickOn("First");
+        robot.push(KeyCode.ALT,KeyCode.F4);
+
+        robot.clickOn("#onlyStock");
+        assertThat(p.getChildren().size()).isEqualTo(0);
+        robot.clickOn("#onlyStock");
+        assertThat(p.getChildren().size()).isEqualTo(1);
     }
 }
