@@ -85,7 +85,6 @@ public class StatisticsController {
             case "week":{statWeek(Date.from(i1),series1,orders);break;}
             case "day":{statDay(series1,orders);break;}
         }
-
         //OrderService.getAllOrders();
         chart.setLegendVisible(false);
         chart.getData().clear();
@@ -128,7 +127,6 @@ public class StatisticsController {
         int year = Integer.parseInt(formatter.format(date0));
         formatter = new SimpleDateFormat("MM");
         int month = Integer.parseInt(formatter.format(date0));
-
         for(int i = 1; i<= YearMonth.of(year, month).lengthOfMonth(); i++){
             series.getData().add(new XYChart.Data<>(""+i, vecd[i]));
         }

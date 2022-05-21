@@ -35,7 +35,7 @@ class OferireFeedbackTest {
 
     @BeforeEach
     void setUp() throws Exception {
-        FileSystemService.setAppFolder(".test-registration-example");
+        FileSystemService.setAppFolder("database-test");
         FileSystemService.initDirectory();
         FileUtils.cleanDirectory(FileSystemService.getApplicationHomeFolder().toFile());
         Main.initDatabases();

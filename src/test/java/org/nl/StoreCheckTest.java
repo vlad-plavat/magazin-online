@@ -38,7 +38,7 @@ class StoreCheckTest {
     public static final String[] ROLES = new String[]{"Client", "Worker", "Courier", "Manager"};
 
     private void onlyInit() throws Exception{
-        FileSystemService.setAppFolder(".test-registration-example");
+        FileSystemService.setAppFolder("database-test");
         FileSystemService.initDirectory();
         FileUtils.cleanDirectory(FileSystemService.getApplicationHomeFolder().toFile());
         Main.initDatabases();
