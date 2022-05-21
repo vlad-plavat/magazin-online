@@ -129,11 +129,13 @@ public class FeedbackViewTest {
 
         Node b = ((Pane)robot.lookup("Feedback text 2").query().getParent()).getChildren().get(4);
         robot.clickOn(b);
+        robot.push(KeyCode.SHIFT);
         robot.clickOn("Are you sure you want to delete the feedback?");
         robot.clickOn("No");
         assertThat(p.getChildren().size()).isEqualTo(3);
         robot.push(KeyCode.SHIFT);
         robot.clickOn(b);
+        robot.push(KeyCode.SHIFT);
         robot.clickOn("Yes");
         robot.push(KeyCode.SHIFT);
 
