@@ -15,7 +15,7 @@ public class WorkerMenuController {
     }
     @FXML
     public void goToSettings(ActionEvent evt){
-        StageService.loadPage(evt,"AccountSettings.fxml");
+        StageService.loadPage(evt,"accountSettings.fxml");
     }
 
     @FXML
