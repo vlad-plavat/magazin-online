@@ -25,12 +25,12 @@
         </font>
     </Text>
     <Button layoutX="1051.0" layoutY="77.0" mnemonicParsing="false" onAction="#deliverOrder" prefHeight="25.0" prefWidth="100.0" text="Deliver" />
-    <Text layoutX="150.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address: " wrappingWidth="354.4628601074219">
+    <Text layoutX="213.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ldsajnvc hlajdn vchedsajfvndhrjdsaljhvendsla" wrappingWidth="419.4628601074219">
         <font>
             <Font size="22.0" />
         </font>
     </Text>
-   <Text layoutX="150.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name: " wrappingWidth="272.58203125">
+   <Text layoutX="213.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name: " wrappingWidth="272.58203125">
       <font>
          <Font size="22.0" />
       </font>
