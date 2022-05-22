@@ -16,7 +16,7 @@ public class ClientMenuController {
     }
     @FXML
     public void goToSettings(ActionEvent evt){
-        StageService.loadPage(evt,"AccountSettings.fxml");
+        StageService.loadPage(evt,"accountSettings.fxml");
     }
     @FXML
     public void goToOrders(ActionEvent evt){
